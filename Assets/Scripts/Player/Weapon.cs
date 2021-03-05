@@ -13,7 +13,10 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Transform _muzzleTransform;
     [SerializeField] private float _weaponRange = 30f;
     [SerializeField] private float _weaponBPS = 2;
-    [SerializeField] private AudioClip _shootSound;
+    [SerializeField, Range(0, 1)] private float _recoilXAxis;
+    [SerializeField, Range(0, 1)] private float _recoilYAxis;
+    [SerializeField, Range(5, 50)] private float _kickDecay = 25f;
+    [SerializeField] private AudioCue _shootSound;
     [Header("Bullet line settings")]
     [SerializeField] private LineRenderer _bulletLine;
     [SerializeField] private float _visibleTime = 0.5f;
@@ -35,11 +38,13 @@ public class Weapon : MonoBehaviour
     private float _cooldownTimer;
     private WaitForSeconds _bulletLineScreenTime;
     private Vector3 _originalPos;
+    private Vector2 _recoilRemaining;
     public Vector3 OriginalPos => _originalPos;
 
     private void Awake() 
     {
         WeaponDamage = 10f;
+
         _cooldown = 1 / _weaponBPS;
         _bulletLineScreenTime = new WaitForSeconds(_visibleTime);
         _bulletLine.enabled = false;
@@ -51,7 +56,12 @@ public class Weapon : MonoBehaviour
         if (!CanShoot)
         {
             _cooldownTimer -= Time.deltaTime;
-        }    
+        }
+
+        // Recoil
+        _head.parent.Rotate(Vector3.up, _recoilRemaining.x);
+        _head.Rotate(Vector3.right, _recoilRemaining.y, Space.Self);
+        _recoilRemaining *= (1 -_kickDecay  * Time.deltaTime);
     }
 
     public void Shoot(Actor owner)
@@ -63,7 +73,10 @@ public class Weapon : MonoBehaviour
             return;
         }
 
-        Debug.Log("Shooting");
+        _recoilRemaining.x = UnityEngine.Random.Range(-_recoilXAxis, _recoilXAxis);
+        _recoilRemaining.y = -UnityEngine.Random.Range(0, _recoilYAxis);
+
+        _shootSound.Play();
 
         shootEvent?.Invoke();
         Ray ray = _fpsCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));

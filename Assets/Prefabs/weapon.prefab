@@ -5057,6 +5057,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6732495989943916012}
   - component: {fileID: 4746430513336125289}
+  - component: {fileID: 3495861098808716467}
   m_Layer: 8
   m_Name: weapon
   m_TagString: Untagged
@@ -5101,7 +5102,10 @@ MonoBehaviour:
   _muzzleTransform: {fileID: 7740797456963224188}
   _weaponRange: 30
   _weaponBPS: 2
-  _shootSound: {fileID: 0}
+  _recoilXAxis: 0.621
+  _recoilYAxis: 1
+  _kickDecay: 25
+  _shootSound: {fileID: 3495861098808716467}
   _bulletLine: {fileID: 7110728729972755521}
   _visibleTime: 0.1
   _lineGradient:
@@ -5133,3 +5137,19 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 5
     m_NumAlphaKeys: 2
+--- !u!114 &3495861098808716467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6732495989943916013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aec4c37d250a4c409961ae6bade9500, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundClip: {fileID: 8300000, guid: 3e6b60941cb28d541b6ec5f21e8ee516, type: 3}
+  _soundConfig: {fileID: 11400000, guid: 1de2ea53d4a51d84790e163773377ef6, type: 2}
+  _playOnStart: 0
+  _channel: {fileID: 11400000, guid: 61c8573fee4a54843a8e6897a8617069, type: 2}

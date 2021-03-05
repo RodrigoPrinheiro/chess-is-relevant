@@ -1096,6 +1096,16 @@ PrefabInstance:
       propertyPath: _fpsCamera
       value: 
       objectReference: {fileID: 963194227}
+    - target: {fileID: 4746430513336125289, guid: f74c7c1555796204f9afd42bfa552329,
+        type: 3}
+      propertyPath: _recoilXAxis
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4746430513336125289, guid: f74c7c1555796204f9afd42bfa552329,
+        type: 3}
+      propertyPath: _recoilYAxis
+      value: 0.35
+      objectReference: {fileID: 0}
     - target: {fileID: 6732495989361739298, guid: f74c7c1555796204f9afd42bfa552329,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -1443,6 +1453,16 @@ PrefabInstance:
       propertyPath: _fpsCamera
       value: 
       objectReference: {fileID: 963194227}
+    - target: {fileID: 4746430513336125289, guid: f74c7c1555796204f9afd42bfa552329,
+        type: 3}
+      propertyPath: _recoilXAxis
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4746430513336125289, guid: f74c7c1555796204f9afd42bfa552329,
+        type: 3}
+      propertyPath: _recoilYAxis
+      value: 0.35
+      objectReference: {fileID: 0}
     - target: {fileID: 6732495989762527845, guid: f74c7c1555796204f9afd42bfa552329,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
