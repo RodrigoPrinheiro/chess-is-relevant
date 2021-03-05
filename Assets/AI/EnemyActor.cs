@@ -6,6 +6,7 @@ public class EnemyActor : Actor
 {
     [Header("Enemy Variables")]
     [SerializeField] protected AudioCue _deathSound;
+    [SerializeField] private float _ragdollTime;
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -34,7 +35,7 @@ public class EnemyActor : Actor
         rb.AddExplosionForce(1000f, transform.position + 
             (source.transform.position - transform.position).normalized * 5, 100f);
 
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(_ragdollTime);
 
         Destroy(gameObject);
     }
