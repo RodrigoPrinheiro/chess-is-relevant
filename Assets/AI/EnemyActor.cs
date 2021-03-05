@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class EnemyActor : Actor
 {
-    public float HP { get; private set; }
-
+    [Header("Enemy Variables")]
+    [SerializeField] protected AudioCue _deathSound;
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
         HP = 100f;
-        damageEvent += ReduceHP;
-        actorDeathEvent += Die;
+        deathEvent += Die;
     }
-    private void Die(Actor actor)
+    private void Die(Actor source)
     {
-        StartCoroutine(BecomeAFossil(actor));
+        _deathSound.Play();
+        StartCoroutine(BecomeAFossil(source));
     }
 
-    private IEnumerator BecomeAFossil(Actor from)
+    private IEnumerator BecomeAFossil(Actor source)
     {
         Rigidbody rb = GetComponent<Rigidbody>();
         Animator anim = GetComponentInChildren<Animator>();
@@ -32,19 +32,12 @@ public class EnemyActor : Actor
         rb.constraints = RigidbodyConstraints.None;
         
         rb.AddExplosionForce(1000f, transform.position + 
-            (from.transform.position - transform.position).normalized * 5, 100f);
+            (source.transform.position - transform.position).normalized * 5, 100f);
 
         yield return new WaitForSeconds(5);
+
         Destroy(gameObject);
     }
 
-    private void ReduceHP(Actor from, Actor act, float damage)
-    {
-        HP = Mathf.Max(0, HP - damage);
-
-        if (HP <= 0)
-        {
-            actorDeathEvent?.Invoke(from);
-        }
-    }
+    
 }

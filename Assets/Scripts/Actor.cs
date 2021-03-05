@@ -5,28 +5,44 @@ using System;
 
 public class Actor : MonoBehaviour
 {
+    [Header("Actor Variables")]
+    [SerializeField] protected float _baseHP = 100f;
+    public float HP { get; protected set; }
+
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public virtual void Damage(Actor source, float damage)
     {
-        
+        staticDamageEvent?.Invoke(source, this, damage);
+        ReduceHP(source, damage);
     }
 
-    public void Damage(Actor from, float damage)
+    protected virtual void ReduceHP(Actor source, float damage)
     {
-        damageEvent?.Invoke(from, this, damage);
+        HP = Mathf.Max(0, HP - damage);
+        
+        if (Dead())
+        {
+            staticActorDeathEvent?.Invoke(source, this);
+            deathEvent?.Invoke(source);
+        }
     }
+
+    public virtual bool Dead()
+    {
+        return HP <= 0;
+    }
+
+    
 
     /// <summary>
     /// Takes in from whom the damage came from, who took the damage and the amount
     /// </summary>
-    public static Action<Actor, Actor, float> damageEvent;
-    public static Action<Actor> actorDeathEvent;
-    public Action actorHit;
-    public Action actorDeath;
+    public static event Action<Actor, Actor, float> staticDamageEvent;
+    public static event Action<Actor, Actor> staticActorDeathEvent;
+    public event Action<Actor> deathEvent;
 }
