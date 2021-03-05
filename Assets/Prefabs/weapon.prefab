@@ -5102,9 +5102,9 @@ MonoBehaviour:
   _muzzleTransform: {fileID: 7740797456963224188}
   _weaponRange: 30
   _weaponBPS: 2
-  _recoilXAxis: 0.621
-  _recoilYAxis: 1
-  _kickDecay: 25
+  _recoilXAxis: 0.2
+  _recoilYAxis: 0.35
+  _kickDecay: 20
   _shootSound: {fileID: 3495861098808716467}
   _bulletLine: {fileID: 7110728729972755521}
   _visibleTime: 0.1

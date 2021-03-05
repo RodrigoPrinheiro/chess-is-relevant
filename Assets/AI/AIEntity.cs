@@ -5,7 +5,7 @@ using System;
 
 public class AIEntity : MonoBehaviour
 {
-    private float _speed;
+    [SerializeField] private float _speed;
     private Action _attack;
     private Func<Vector3> _movement;
     private Transform _player;
@@ -14,12 +14,12 @@ public class AIEntity : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         _player = GameObject.FindGameObjectWithTag("Player").transform;
         _rb = GetComponent<Rigidbody>();
 
-        SetAttackAndMovementMode(AttackType.Melee, MovementType.Ground, 50);
+        SetAttackAndMovementMode(AttackType.Melee, MovementType.Ground, _speed);
     }
 
     public void SetAttackAndMovementMode(AttackType attkType, MovementType movType, float speed)
