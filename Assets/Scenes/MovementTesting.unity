@@ -474,6 +474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rightWeapon: {fileID: 739160981}
   _leftWeapon: {fileID: 1358371904}
+  _gunBob: {x: 0.02, y: 0.05}
 --- !u!114 &325579709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1106,12 +1107,12 @@ PrefabInstance:
     - target: {fileID: 6732495989943916012, guid: f74c7c1555796204f9afd42bfa552329,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.34899998
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 6732495989943916012, guid: f74c7c1555796204f9afd42bfa552329,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.282
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 6732495989943916012, guid: f74c7c1555796204f9afd42bfa552329,
         type: 3}
@@ -1448,12 +1449,12 @@ PrefabInstance:
     - target: {fileID: 6732495989943916012, guid: f74c7c1555796204f9afd42bfa552329,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.36899996
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 6732495989943916012, guid: f74c7c1555796204f9afd42bfa552329,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.282
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 6732495989943916012, guid: f74c7c1555796204f9afd42bfa552329,
         type: 3}

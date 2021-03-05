@@ -34,11 +34,14 @@ public class Weapon : MonoBehaviour
     private float _cooldown;
     private float _cooldownTimer;
     private WaitForSeconds _bulletLineScreenTime;
+    private Vector3 _originalPos;
+    public Vector3 OriginalPos => _originalPos;
 
     private void Awake() {
         _cooldown = 1 / _weaponBPS;
         _bulletLineScreenTime = new WaitForSeconds(_visibleTime);
         _bulletLine.enabled = false;
+        _originalPos = transform.localPosition;
     }
 
     private void Update() 
