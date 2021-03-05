@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Movements
 {
@@ -13,14 +14,14 @@ public class Movements
         _player = player;
     }
 
-    public Vector3 GroundMovement()
+    private Vector3 GroundMovement()
     {
         Vector3 dir = _player.position - _position.position;
         dir.y = 0;
         return dir.normalized;
     }
 
-    public Vector3 AirMovement()
+    private Vector3 AirMovement()
     {
         Vector3 dir = _player.position - _position.position;
         dir.y = 0;
@@ -33,8 +34,21 @@ public class Movements
         return dir.normalized;
     }
 
-    public Vector3 MixedMovement()
+    private Vector3 MixedMovement()
     {
         return Vector3.zero;
+    }
+
+    public Func<Vector3> ChooseMovement(Movements mov, MovementType movType)
+    {
+        switch (movType)
+        {
+            case (MovementType.Ground):
+                return new Func<Vector3>(mov.GroundMovement);
+            case (MovementType.Air):
+                return new Func<Vector3>(mov.AirMovement);
+            default:
+                return null;
+        }
     }
 }

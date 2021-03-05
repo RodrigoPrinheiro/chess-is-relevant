@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Attacks
 {
@@ -14,14 +15,25 @@ public class Attacks
         Player = player;
     }
 
-
-    public void MeleeAttack()
+    private void MeleeAttack()
     {
         throw new System.NotImplementedException();
     }
 
-    public void RangedAttack()
+    private void RangedAttack()
     {
         throw new System.NotImplementedException();
+    }
+
+    public Action ChooseAttack(Attacks attk, AttackType attkType)
+    {
+        switch (attkType)
+        {
+            case (AttackType.Melee):
+                return new Action(attk.MeleeAttack);
+            case (AttackType.Ranged):
+                return new Action(attk.RangedAttack);
+            default: return null;
+        }
     }
 }

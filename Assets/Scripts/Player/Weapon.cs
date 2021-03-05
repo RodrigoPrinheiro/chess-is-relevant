@@ -35,7 +35,9 @@ public class Weapon : MonoBehaviour
     private float _cooldownTimer;
     private WaitForSeconds _bulletLineScreenTime;
 
-    private void Awake() {
+    private void Awake() 
+    {
+        WeaponDamage = 10f;
         _cooldown = 1 / _weaponBPS;
         _bulletLineScreenTime = new WaitForSeconds(_visibleTime);
         _bulletLine.enabled = false;

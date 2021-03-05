@@ -5,14 +5,13 @@ using System;
 
 public class AIEntity : MonoBehaviour
 {
-    [SerializeField] private float _speed;
-
+    private float _speed;
     private Action _attack;
     private Func<Vector3> _movement;
     private Transform _player;
     private Rigidbody _rb;
-
     private Vector3 _direction;
+
 
     // Start is called before the first frame update
     void Start()
@@ -20,16 +19,17 @@ public class AIEntity : MonoBehaviour
         _player = GameObject.FindGameObjectWithTag("Player").transform;
         _rb = GetComponent<Rigidbody>();
 
-        SetAttackAndMovementMode(AttackType.Melee, MovementType.Ground);
+        SetAttackAndMovementMode(AttackType.Melee, MovementType.Ground, 50);
     }
 
-    public void SetAttackAndMovementMode(AttackType attkType, MovementType movType)
+    public void SetAttackAndMovementMode(AttackType attkType, MovementType movType, float speed)
     {
         Movements mov = new Movements(transform, _player);
         Attacks attk = new Attacks(transform, _player);
 
-        _attack = ChooseAttack(attk, attkType);
-        _movement = ChooseMovement(mov, movType);
+        _attack = attk.ChooseAttack(attk, attkType);
+        _movement = mov.ChooseMovement(mov, movType);
+        _speed = speed;
     }
 
     // Update is called once per frame
@@ -41,28 +41,5 @@ public class AIEntity : MonoBehaviour
     private void FixedUpdate()
     {
         _rb.velocity += _direction * Time.fixedDeltaTime;
-    }
-
-    private Action ChooseAttack(Attacks attk, AttackType attkType)
-    {
-        switch (attkType)
-        {
-            case (AttackType.Melee):
-                return new Action(attk.MeleeAttack);
-            case (AttackType.Ranged):
-                return new Action(attk.RangedAttack);
-        }
-        return null;
-    }
-    private Func<Vector3> ChooseMovement(Movements mov, MovementType movType)
-    {
-        switch (movType)
-        {
-            case (MovementType.Ground):
-                return new Func<Vector3>(mov.GroundMovement);
-            case (MovementType.Air):
-                return new Func<Vector3>(mov.AirMovement);
-        }
-        return null;
     }
 }
