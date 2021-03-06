@@ -61,6 +61,9 @@ public class Weapon : MonoBehaviour
         // Recoil
         _head.parent.Rotate(Vector3.up, _recoilRemaining.x);
         _head.Rotate(Vector3.right, _recoilRemaining.y, Space.Self);
+
+        transform.Translate(-transform.forward *  _recoilRemaining.y, Space.Self);
+        transform.Translate(transform.up *  _recoilRemaining.x, Space.Self);
         _recoilRemaining *= (1 -_kickDecay  * Time.deltaTime);
     }
 
