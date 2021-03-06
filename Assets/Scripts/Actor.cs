@@ -12,7 +12,7 @@ public class Actor : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        
+        HP = _baseHP;
     }
 
     public virtual void Damage(Actor source, float damage)

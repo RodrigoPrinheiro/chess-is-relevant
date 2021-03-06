@@ -223,6 +223,7 @@ MonoBehaviour:
   _baseHP: 100
   _deathSound: {fileID: 3737210161153261049}
   _ragdollTime: 1
+  _activeEnemies: {fileID: 11400000, guid: efcbcf559510322418c6729d44f8a182, type: 2}
 --- !u!114 &3737210161153261049
 MonoBehaviour:
   m_ObjectHideFlags: 0

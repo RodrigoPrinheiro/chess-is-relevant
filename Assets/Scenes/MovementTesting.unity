@@ -241,7 +241,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &100069736
 GameObject:
@@ -889,6 +889,16 @@ PrefabInstance:
       propertyPath: _recoilYAxis
       value: 0.35
       objectReference: {fileID: 0}
+    - target: {fileID: 6439932115258502588, guid: f74c7c1555796204f9afd42bfa552329,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0636
+      objectReference: {fileID: 0}
+    - target: {fileID: 6439932115258502588, guid: f74c7c1555796204f9afd42bfa552329,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.2212
+      objectReference: {fileID: 0}
     - target: {fileID: 6732495989361739298, guid: f74c7c1555796204f9afd42bfa552329,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -1055,6 +1065,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1640121691
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1640121692}
+  m_Layer: 0
+  m_Name: WaveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1640121692
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1640121691}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1852214009 stripped
 Transform:
@@ -1315,6 +1355,11 @@ PrefabInstance:
       propertyPath: _recoilYAxis
       value: 0.35
       objectReference: {fileID: 0}
+    - target: {fileID: 4746430513336125289, guid: f74c7c1555796204f9afd42bfa552329,
+        type: 3}
+      propertyPath: <WeaponDamage>k__BackingField
+      value: 3.25
+      objectReference: {fileID: 0}
     - target: {fileID: 6732495989762527845, guid: f74c7c1555796204f9afd42bfa552329,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1393,7 +1438,7 @@ PrefabInstance:
     - target: {fileID: 4564477119676981208, guid: 8f55a50f22295d14487e76bb2e4ee54f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4564477119676981208, guid: 8f55a50f22295d14487e76bb2e4ee54f,
         type: 3}

@@ -7,15 +7,18 @@ public class EnemyActor : Actor
     [Header("Enemy Variables")]
     [SerializeField] protected AudioCue _deathSound;
     [SerializeField] private float _ragdollTime;
+    [SerializeField] private ActiveEnemies _activeEnemies;
     // Start is called before the first frame update
     protected override void Start()
     {
-        HP = 100f;
+        base.Start();
         deathEvent += Die;
+        _activeEnemies.AddNewEnemyActor(this);
     }
     private void Die(Actor source)
     {
         _deathSound.Play();
+        _activeEnemies.RemoveEnemyActor(this);
         StartCoroutine(BecomeAFossil(source));
     }
 

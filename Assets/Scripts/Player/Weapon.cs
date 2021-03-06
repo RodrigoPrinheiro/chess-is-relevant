@@ -11,6 +11,7 @@ public class Weapon : MonoBehaviour
     [Header("Shoot settings")]
     [SerializeField] private LayerMask _hitMask;
     [SerializeField] private Transform _muzzleTransform;
+    [SerializeField] private float _weaponDamage = 10f;
     [SerializeField] private float _weaponRange = 30f;
     [SerializeField] private float _weaponBPS = 2;
     [SerializeField, Range(0, 1)] private float _recoilXAxis;
@@ -21,7 +22,11 @@ public class Weapon : MonoBehaviour
     [SerializeField] private LineRenderer _bulletLine;
     [SerializeField] private float _visibleTime = 0.5f;
     [SerializeField] private Gradient _lineGradient;
-    public float WeaponDamage {get; set;}
+    public float WeaponDamage 
+    {
+        get => _weaponDamage;
+        set => _weaponDamage = value;
+    }
     public bool CanShoot
     {
         get => _cooldownTimer <= 0;
@@ -43,8 +48,6 @@ public class Weapon : MonoBehaviour
 
     private void Awake() 
     {
-        WeaponDamage = 10f;
-
         _cooldown = 1 / _weaponBPS;
         _bulletLineScreenTime = new WaitForSeconds(_visibleTime);
         _bulletLine.enabled = false;
@@ -79,9 +82,8 @@ public class Weapon : MonoBehaviour
         _recoilRemaining.x = UnityEngine.Random.Range(-_recoilXAxis, _recoilXAxis);
         _recoilRemaining.y = -UnityEngine.Random.Range(0, _recoilYAxis);
 
-        _shootSound.Play();
-
         shootEvent?.Invoke();
+
         Ray ray = _fpsCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
         RaycastHit hit;
         Debug.DrawRay(ray.origin, ray.direction * _weaponRange, Color.green, 0.6f);
@@ -122,6 +124,6 @@ public class Weapon : MonoBehaviour
         _bulletLine.enabled = false;
     }
 
-    public Action shootEvent;
+    public UnityEngine.Events.UnityEvent shootEvent;
     public Action shootFailedEvent;
 }
