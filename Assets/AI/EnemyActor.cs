@@ -8,6 +8,8 @@ public class EnemyActor : Actor
     [SerializeField] protected AudioCue _deathSound;
     [SerializeField] private float _ragdollTime;
     [SerializeField] private ActiveEnemies _activeEnemies;
+    [SerializeField] private GameObject _deathParticles;
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -20,6 +22,8 @@ public class EnemyActor : Actor
         _deathSound.Play();
         _activeEnemies.RemoveEnemyActor(this);
         StartCoroutine(BecomeAFossil(source));
+        
+        if (!Dead()) StartCoroutine(BecomeAFossil(source));
     }
 
     private IEnumerator BecomeAFossil(Actor source)
@@ -35,11 +39,12 @@ public class EnemyActor : Actor
         rb.useGravity = true;
         rb.constraints = RigidbodyConstraints.None;
         
-        rb.AddExplosionForce(1000f, transform.position + 
+        rb.AddExplosionForce(750f, transform.position + 
             (source.transform.position - transform.position).normalized * 5, 100f);
 
         yield return new WaitForSeconds(_ragdollTime);
 
+        Instantiate(_deathParticles, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
