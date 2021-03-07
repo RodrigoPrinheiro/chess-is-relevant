@@ -6,6 +6,7 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField, Range(0, 1)] private float _sameTypeRerollChance;
     [SerializeField] private ActorSpawnSettings[] _spawns;
+    [SerializeField] private Vector3 _arenaDimensions;
     private Transform _playerTransform;
     private ActorSpawnSettings _lastSpawned;
     private void Awake()
@@ -51,9 +52,20 @@ public class Spawner : MonoBehaviour
         }
         // multiply by the random distance
         Vector3 pos = dir * spawn.Distance;
+
+        pos.x = Mathf.Clamp(pos.x, -_arenaDimensions.x, _arenaDimensions.x);
+        pos.z = Mathf.Clamp(pos.z, -_arenaDimensions.z, _arenaDimensions.z);
+        pos.y = Mathf.Clamp(pos.y, 0, _arenaDimensions.y);
+
         // Instantiate
         newEnemy = Instantiate<EnemyActor>(spawn.Prefab, pos, Quaternion.identity);
 
         return newEnemy;
+    }
+
+    private void OnDrawGizmos() {
+        Gizmos.color = Color.blue;
+        Vector3 center = Vector3.zero + Vector3.up * (_arenaDimensions.y / 2);
+        Gizmos.DrawWireCube(center, _arenaDimensions);
     }
 }

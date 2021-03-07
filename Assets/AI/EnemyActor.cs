@@ -10,6 +10,7 @@ public class EnemyActor : Actor
     [SerializeField] private ActiveEnemies _activeEnemies;
     [SerializeField] private GameObject _deathParticles;
     public float PowerLevel{get; protected set;}
+    private bool _ragdolled;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -24,7 +25,7 @@ public class EnemyActor : Actor
         _activeEnemies.RemoveEnemyActor(this);
         StartCoroutine(BecomeAFossil(source));
         
-        if (!Dead()) StartCoroutine(BecomeAFossil(source));
+        if (!_ragdolled) StartCoroutine(BecomeAFossil(source));
     }
 
     // Refreshes HP
@@ -46,6 +47,8 @@ public class EnemyActor : Actor
         rb.angularDrag = 0;
         rb.useGravity = true;
         rb.constraints = RigidbodyConstraints.None;
+
+        _ragdolled = true;
         
         rb.AddExplosionForce(750f, transform.position + 
             (source.transform.position - transform.position).normalized * 5, 100f);

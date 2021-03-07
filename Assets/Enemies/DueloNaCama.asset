@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1daf257cfc79e044baf9a2032a745c5f, type: 3}
+  m_Name: DueloNaCama
+  m_EditorClassIdentifier: 
+  _type: 0
+  _attackType: 0
+  _powerLevelGate: 1.02
+  _prefab: {fileID: 4564477119676981211, guid: 8f55a50f22295d14487e76bb2e4ee54f, type: 3}
+  _distanceToOtherSpawn: 0
+  _minDistance: 20
+  _maxDistance: 75
