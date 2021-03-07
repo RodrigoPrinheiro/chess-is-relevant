@@ -19,17 +19,17 @@ public class Spawner : MonoBehaviour
         
         // 1 + power = increased stats
         ActorSpawnSettings newSpawn = _spawns[Random.Range(0, _spawns.Length)];
-        if (_lastSpawned != null &&
-            newSpawn.Type == _lastSpawned.Type && newSpawn.Attack == _lastSpawned.Attack)
-        {
-            if (Random.value < _sameTypeRerollChance)
-            {
-                ActorSpawnSettings first = newSpawn;
+        // if (_lastSpawned != null &&
+        //     newSpawn.Type == _lastSpawned.Type && newSpawn.Attack == _lastSpawned.Attack)
+        // {
+        //     if (Random.value < _sameTypeRerollChance)
+        //     {
+        //         ActorSpawnSettings first = newSpawn;
                 
-                while(newSpawn == first)
-                    newSpawn = _spawns[Random.Range(0, _spawns.Length)];
-            }     
-        }
+        //         while(newSpawn == first)
+        //             newSpawn = _spawns[Random.Range(0, _spawns.Length)];
+        //     }     
+        // }
 
         EnemyActor spawned = Create(newSpawn);
         spawned.SetPower(power);

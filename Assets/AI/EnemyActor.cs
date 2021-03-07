@@ -52,7 +52,9 @@ public class EnemyActor : Actor
 
         yield return new WaitForSeconds(_ragdollTime);
 
-        Instantiate(_deathParticles, transform.position, Quaternion.identity);
+        if (_deathParticles)
+            Instantiate(_deathParticles, transform.position, Quaternion.identity);
+        
         Destroy(gameObject);
     }
 

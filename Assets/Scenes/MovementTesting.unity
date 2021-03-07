@@ -1128,7 +1128,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sameTypeRerollChance: 0.2
-  _spawns: []
+  _spawns:
+  - {fileID: 11400000, guid: b6e895585f8154c41ac0b0ff3a7db28f, type: 2}
 --- !u!4 &1852214009 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6732495989943916012, guid: f74c7c1555796204f9afd42bfa552329,
@@ -1492,7 +1493,7 @@ PrefabInstance:
     - target: {fileID: 4564477119676981208, guid: 8f55a50f22295d14487e76bb2e4ee54f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.76
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4564477119676981208, guid: 8f55a50f22295d14487e76bb2e4ee54f,
         type: 3}
@@ -1544,11 +1545,5 @@ PrefabInstance:
       propertyPath: _speed
       value: 69
       objectReference: {fileID: 0}
-    - target: {fileID: 4564477119676981211, guid: 8f55a50f22295d14487e76bb2e4ee54f,
-        type: 3}
-      propertyPath: _deathParticles
-      value: 
-      objectReference: {fileID: 3681823397900219374, guid: 93f53203d4304d64cab253f0fae7846f,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f55a50f22295d14487e76bb2e4ee54f, type: 3}

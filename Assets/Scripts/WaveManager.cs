@@ -34,6 +34,7 @@ public class WaveManager : MonoBehaviour
 
         _lastWaveTime = _roundTime;
         _wave = 1;
+        _rate = _initialRate;
 
         StartCoroutine(WaitBetweenWaves());
     }
@@ -44,17 +45,13 @@ public class WaveManager : MonoBehaviour
         if (_waveTimeCounter > 0)
         {
             CurrentWaveState = WaveState.RUNNING;
+            _waveTimeCounter -= Time.deltaTime;
+
+            
         }
-        else if (CurrentWaveState != WaveState.STOPPED)
+        else if (CurrentWaveState == WaveState.RUNNING)
         {
-            CurrentWaveState = WaveState.STOPPED;
-
-            // Increment wave and call new wave event
-            _wave++;
-            newWaveEvent?.Invoke(_wave);
-
-            // Create new wave time
-            WaitBetweenWaves();
+            NewWave();
         }
 
         // Manage Spawns
@@ -64,12 +61,24 @@ public class WaveManager : MonoBehaviour
         }
     }
 
+    private void NewWave()
+    {
+        Debug.Log("New Wave");
+        CurrentWaveState = WaveState.STOPPED;
+        // Increment wave and call new wave event
+        _wave++;
+        newWaveEvent?.Invoke(_wave);
+
+        // Create new wave time
+        StartCoroutine(WaitBetweenWaves());
+    }
+
     private void ManageSpawns()
     {
         if (_time > 0)
         {
             _time -= Time.deltaTime;
-            
+
         }
         else
         {
@@ -85,7 +94,8 @@ public class WaveManager : MonoBehaviour
 
             // Reset spawn timer
             _time = (UnityEngine.Random.Range(0.7f, 1f) * _roundTime) / _rate;
-            _time *= Mathf.Sqrt(_monsterPowerLevel);
+            // _time *= Mathf.Sqrt(_monsterPowerLevel);
+            Debug.Log("Next Spawn in: " + _time + "seconds. Power Level: " + _monsterPowerLevel);
         }
     }
 
@@ -115,7 +125,7 @@ public class WaveManager : MonoBehaviour
 
         // Create new wave time
         _waveTimeCounter = _lastWaveTime + (GROWTH_RATE * _kills * 3f);
-        Debug.Log(_waveTimeCounter / 60f);
+        Debug.Log("Next Wave in: " + (_waveTimeCounter / 60f) + " minutes");
         CurrentWaveState = WaveState.RUNNING;
     }
 
