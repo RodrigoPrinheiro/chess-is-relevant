@@ -9,6 +9,7 @@ public class EnemyActor : Actor
     [SerializeField] private float _ragdollTime;
     [SerializeField] private ActiveEnemies _activeEnemies;
     [SerializeField] private GameObject _deathParticles;
+    public float PowerLevel{get; protected set;}
 
     // Start is called before the first frame update
     protected override void Start()
@@ -24,6 +25,13 @@ public class EnemyActor : Actor
         StartCoroutine(BecomeAFossil(source));
         
         if (!Dead()) StartCoroutine(BecomeAFossil(source));
+    }
+
+    // Refreshes HP
+    public void SetPower(float power)
+    {
+        PowerLevel = power + 1;
+        HP = _baseHP * PowerLevel;
     }
 
     private IEnumerator BecomeAFossil(Actor source)
