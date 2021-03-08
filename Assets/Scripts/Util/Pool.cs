@@ -58,6 +58,10 @@ public class Pool<T> where T : Component
         return obj;
     }
 
+    /// <summary>
+    /// Sets the condition for the objects in the pool to be in the "available" state
+    /// </summary>
+    /// <param name="condition">Func<T, bool> returns a bool using T</param>
     public void SetRequestCondition(Func<T, bool> condition)
     {
         _requestCondition = condition;

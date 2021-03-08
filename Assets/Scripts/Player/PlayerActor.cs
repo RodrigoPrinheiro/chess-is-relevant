@@ -1,7 +1,17 @@
 ﻿public class PlayerActor : Actor
 {
     // Start is called before the first frame update
-    private void Start()
+    protected override void Start()
+    {
+        base.Start();
+    }
+
+    private void OnEnable() 
+    {
+        
+    }
+
+    private void OnDisable() 
     {
     }
 

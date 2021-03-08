@@ -11,11 +11,11 @@ public class AudioConfiguration : ScriptableObject
     [SerializeField, Range(0,1)] private float minVolume;
     [SerializeField, Range(0,1)] private float maxVolume = 1f;
     [Space(30)]
-    [SerializeField, Range(0,1)] private float pitch = 1f;
+    [SerializeField, Range(0,2)] private float pitch = 1f;
     [Header("Pitch Rnd settings")]
     [SerializeField] private bool randomizePitch;
-    [SerializeField, Range(0,1)] private float minPitch = 1f;
-    [SerializeField, Range(0,1)] private float maxPitch = 1f;
+    [SerializeField, Range(0,2)] private float minPitch = 1f;
+    [SerializeField, Range(0,2)] private float maxPitch = 1f;
 
     [Header("Mixer Settings")]
     [SerializeField] private AudioMixerGroup audioCueMixer;

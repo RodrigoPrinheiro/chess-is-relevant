@@ -156,6 +156,7 @@ GameObject:
   - component: {fileID: 5796785365225937885}
   - component: {fileID: 5796785365225937875}
   - component: {fileID: 3737210161153261049}
+  - component: {fileID: 4417925035537935840}
   m_Layer: 0
   m_Name: Monopoly
   m_TagString: Untagged
@@ -227,4 +228,20 @@ MonoBehaviour:
   _soundClip: {fileID: 8300000, guid: 0d5e33f564f923045823f0a60354c53a, type: 3}
   _soundConfig: {fileID: 11400000, guid: 1de2ea53d4a51d84790e163773377ef6, type: 2}
   _playOnStart: 0
+  _channel: {fileID: 11400000, guid: 61c8573fee4a54843a8e6897a8617069, type: 2}
+--- !u!114 &4417925035537935840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5796785365225937873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aec4c37d250a4c409961ae6bade9500, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundClip: {fileID: 8300000, guid: 0d5e33f564f923045823f0a60354c53a, type: 3}
+  _soundConfig: {fileID: 11400000, guid: 1de2ea53d4a51d84790e163773377ef6, type: 2}
+  _playOnStart: 1
   _channel: {fileID: 11400000, guid: 61c8573fee4a54843a8e6897a8617069, type: 2}

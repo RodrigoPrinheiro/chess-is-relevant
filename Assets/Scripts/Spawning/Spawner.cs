@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class Spawner : MonoBehaviour
 {
@@ -18,7 +19,19 @@ public class Spawner : MonoBehaviour
         if (_spawns.Length <= 0) return;
 
         // 1 + power = increased stats
-        ActorSpawnSettings newSpawn = _spawns[Random.Range(0, _spawns.Length)];
+        
+        List<ActorSpawnSettings> possible = new List<ActorSpawnSettings>();
+
+        bool shouldRollIfSameType = Random.value <= _sameTypeRerollChance;
+        for (int i = 0; i < _spawns.Length; i++)
+        {
+            if (_spawns[i].PowerLevelGate <= power + 1)
+            {
+                possible.Add(_spawns[i]);
+            }
+        }
+
+        ActorSpawnSettings newSpawn = possible[Random.Range(0, possible.Count)];
         // if (_lastSpawned != null &&
         //     newSpawn.Type == _lastSpawned.Type && newSpawn.Attack == _lastSpawned.Attack)
         // {
@@ -46,7 +59,7 @@ public class Spawner : MonoBehaviour
         // If its a flying enemy get random y direction aswell,
         if (spawn.Type == MovementType.Air)
         {
-            dir.y = Random.Range(0, 1);
+            dir.y = Random.Range(0.5f, 1);
             dir.Normalize();
         }
         // multiply by the random distance
@@ -60,7 +73,7 @@ public class Spawner : MonoBehaviour
         EnemyActor newEnemy = Instantiate(spawn.Prefab, pos, Quaternion.identity);
 
         AIEntity ai = newEnemy.gameObject.AddComponent<AIEntity>();
-        ai.SetAttackAndMovementMode(spawn.Attack, spawn.Type, 50);
+        ai.SetAttackAndMovementMode(spawn.Attack, spawn.Type, spawn.MoveSpeed);
 
         return newEnemy;
     }

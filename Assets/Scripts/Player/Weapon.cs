@@ -97,6 +97,7 @@ public class Weapon : MonoBehaviour
             if (hit.transform.TryGetComponent<Actor>(out Actor enemy))
             {
                 enemy.Damage(owner, WeaponDamage);
+                bulletHit?.Invoke(hit);
             }
 
             ShowBulletLine(hit.point);
@@ -130,5 +131,6 @@ public class Weapon : MonoBehaviour
     }
 
     public UnityEngine.Events.UnityEvent shootEvent;
+    public Action<RaycastHit> bulletHit;
     public Action shootFailedEvent;
 }

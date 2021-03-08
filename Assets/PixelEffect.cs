@@ -11,7 +11,7 @@ public class PixelEffect : MonoBehaviour
 
     void SetMaterial()
     {
-        pixelMaterial = new Material(Shader.Find("Hidden/PixelShader"));
+        pixelMaterial = new Material(Shader.Find("Custom/PixelShader"));
     }
 
     void OnEnable()
