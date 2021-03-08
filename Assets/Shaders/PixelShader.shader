@@ -48,7 +48,6 @@
             {
 				float2 pixelScaling = _PixelDensity * _AspectRatioMultiplier;
 				i.uv = floor(i.uv * pixelScaling) / pixelScaling;
-
 				
                 fixed4 col = _MainTex.Sample(my_point_repeat_sampler, i.uv);
                 return col;

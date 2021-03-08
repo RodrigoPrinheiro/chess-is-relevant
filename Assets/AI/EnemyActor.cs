@@ -27,7 +27,6 @@ public class EnemyActor : Actor
     {
         _deathSound.Play();
         _activeEnemies.RemoveEnemyActor(this);
-        StartCoroutine(BecomeAFossil(source));
 
         if (!_ragdolled) StartCoroutine(BecomeAFossil(source));
     }
