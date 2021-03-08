@@ -102,5 +102,10 @@ PrefabInstance:
       propertyPath: _baseHP
       value: 69
       objectReference: {fileID: 0}
+    - target: {fileID: 5796785365225937885, guid: eaf7c8cadbb1388439b82c690f99e82b,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eaf7c8cadbb1388439b82c690f99e82b, type: 3}

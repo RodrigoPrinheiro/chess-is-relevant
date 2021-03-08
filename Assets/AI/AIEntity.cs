@@ -1,31 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
-using System;
 
 public class AIEntity : MonoBehaviour
 {
-    [SerializeField] private float _speed;
+    private float _speed;
     private Action _attack;
     private Func<Vector3> _movement;
-    private Transform _player;
-    private Rigidbody _rb;
     private Vector3 _direction;
-
-
-    // Start is called before the first frame update
-    void Awake()
-    {
-        _player = GameObject.FindGameObjectWithTag("Player").transform;
-        _rb = GetComponent<Rigidbody>();
-
-        SetAttackAndMovementMode(AttackType.Melee, MovementType.Ground, _speed);
-    }
+    private Rigidbody _rb;
+    private Actor _owner;
+    private Transform _player;
 
     public void SetAttackAndMovementMode(AttackType attkType, MovementType movType, float speed)
     {
-        Movements mov = new Movements(transform, _player);
-        Attacks attk = new Attacks(transform, _player);
+        _rb = GetComponent<Rigidbody>();
+        _player = GameObject.FindGameObjectWithTag("Player").transform;
+        _owner = GetComponent<Actor>();
+
+        float attkrange = movType == MovementType.Ground ? 1.5f : 4f;
+        float minDist = movType == MovementType.Ground ? 1f : 6f;
+
+        Movements mov = new Movements(_owner, _player, minDist);
+        Attacks attk = new Attacks(_owner, _player, 10, attkrange);
 
         _attack = attk.ChooseAttack(attk, attkType);
         _movement = mov.ChooseMovement(mov, movType);
@@ -35,9 +31,12 @@ public class AIEntity : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        transform.LookAt(_direction.y == 0 ? (_direction + transform.position) : _player.position);
+
         _direction = _movement.Invoke() * _speed;
-        transform.LookAt(_direction);
+        _attack?.Invoke();
     }
+
     private void FixedUpdate()
     {
         _rb.velocity += _direction * Time.fixedDeltaTime;

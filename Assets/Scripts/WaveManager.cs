@@ -78,7 +78,6 @@ public class WaveManager : MonoBehaviour
         if (_time > 0)
         {
             _time -= Time.deltaTime;
-
         }
         else
         {

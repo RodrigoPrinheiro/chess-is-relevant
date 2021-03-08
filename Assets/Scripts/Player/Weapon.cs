@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using System.Collections;
 using UnityEngine;
-using System;
 
 public class Weapon : MonoBehaviour
 {
@@ -10,6 +9,7 @@ public class Weapon : MonoBehaviour
 
     [Header("Shoot settings")]
     [SerializeField] private LayerMask _hitMask;
+
     [SerializeField] private Transform _muzzleTransform;
     [SerializeField] private float _weaponDamage = 10f;
     [SerializeField] private float _weaponRange = 30f;
@@ -18,15 +18,19 @@ public class Weapon : MonoBehaviour
     [SerializeField, Range(0, 1)] private float _recoilYAxis;
     [SerializeField, Range(5, 50)] private float _kickDecay = 25f;
     [SerializeField] private AudioCue _shootSound;
+
     [Header("Bullet line settings")]
     [SerializeField] private LineRenderer _bulletLine;
+
     [SerializeField] private float _visibleTime = 0.5f;
     [SerializeField] private Gradient _lineGradient;
-    public float WeaponDamage 
+
+    public float WeaponDamage
     {
         get => _weaponDamage;
         set => _weaponDamage = value;
     }
+
     public bool CanShoot
     {
         get => _cooldownTimer <= 0;
@@ -38,7 +42,7 @@ public class Weapon : MonoBehaviour
                 _cooldownTimer = 0;
         }
     }
-    
+
     private float _cooldown;
     private float _cooldownTimer;
     private WaitForSeconds _bulletLineScreenTime;
@@ -46,7 +50,7 @@ public class Weapon : MonoBehaviour
     private Vector2 _recoilRemaining;
     public Vector3 OriginalPos => _originalPos;
 
-    private void Awake() 
+    private void Awake()
     {
         _cooldown = 1 / _weaponBPS;
         _bulletLineScreenTime = new WaitForSeconds(_visibleTime);
@@ -54,7 +58,7 @@ public class Weapon : MonoBehaviour
         _originalPos = transform.localPosition;
     }
 
-    private void Update() 
+    private void Update()
     {
         if (!CanShoot)
         {
@@ -65,9 +69,9 @@ public class Weapon : MonoBehaviour
         _head.parent.Rotate(Vector3.up, _recoilRemaining.x);
         _head.Rotate(Vector3.right, _recoilRemaining.y, Space.Self);
 
-        transform.Translate(-transform.forward *  _recoilRemaining.y, Space.Self);
-        transform.Translate(transform.up *  _recoilRemaining.x, Space.Self);
-        _recoilRemaining *= (1 -_kickDecay  * Time.deltaTime);
+        transform.Translate(-transform.forward * _recoilRemaining.y, Space.Self);
+        transform.Translate(transform.up * _recoilRemaining.x, Space.Self);
+        _recoilRemaining *= (1 - _kickDecay * Time.deltaTime);
     }
 
     public void Shoot(Actor owner)
@@ -85,12 +89,12 @@ public class Weapon : MonoBehaviour
         shootEvent?.Invoke();
 
         Ray ray = _fpsCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
-        RaycastHit hit;
+
         Debug.DrawRay(ray.origin, ray.direction * _weaponRange, Color.green, 0.6f);
-        if (Physics.Raycast(ray, out hit, _weaponRange, ~_hitMask))
+
+        if (Physics.Raycast(ray, out RaycastHit hit, _weaponRange, ~_hitMask))
         {
-            Actor enemy;
-            if (hit.transform.TryGetComponent<Actor>(out enemy))
+            if (hit.transform.TryGetComponent<Actor>(out Actor enemy))
             {
                 enemy.Damage(owner, WeaponDamage);
             }
@@ -118,6 +122,7 @@ public class Weapon : MonoBehaviour
 
         StartCoroutine(BulletLine());
     }
+
     private IEnumerator BulletLine()
     {
         yield return _bulletLineScreenTime;
