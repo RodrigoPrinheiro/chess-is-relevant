@@ -86,6 +86,7 @@ public class Weapon : MonoBehaviour
 
         Ray ray = _fpsCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
         RaycastHit hit;
+
         Debug.DrawRay(ray.origin, ray.direction * _weaponRange, Color.green, 0.6f);
         if (Physics.Raycast(ray, out hit, _weaponRange, ~_hitMask))
         {
@@ -93,6 +94,7 @@ public class Weapon : MonoBehaviour
             if (hit.transform.TryGetComponent<Actor>(out enemy))
             {
                 enemy.Damage(owner, WeaponDamage);
+                bulletHit?.Invoke(hit);
             }
 
             ShowBulletLine(hit.point);
@@ -125,5 +127,6 @@ public class Weapon : MonoBehaviour
     }
 
     public UnityEngine.Events.UnityEvent shootEvent;
+    public Action<RaycastHit> bulletHit;
     public Action shootFailedEvent;
 }

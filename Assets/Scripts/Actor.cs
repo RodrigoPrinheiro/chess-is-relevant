@@ -8,16 +8,19 @@ public class Actor : MonoBehaviour
     [Header("Actor Variables")]
     [SerializeField] protected float _baseHP = 100f;
     public float HP { get; protected set; }
+    public float MaxHP {get; protected set;}
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
         HP = _baseHP;
+        MaxHP = _baseHP;
     }
 
     public virtual void Damage(Actor source, float damage)
     {
         staticDamageEvent?.Invoke(source, this, damage);
+        hitEvent?.Invoke(damage);
         ReduceHP(source, damage);
     }
 
@@ -45,4 +48,5 @@ public class Actor : MonoBehaviour
     public static event Action<Actor, Actor, float> staticDamageEvent;
     public static event Action<Actor, Actor> staticActorDeathEvent;
     public event Action<Actor> deathEvent;
+    public event Action<float> hitEvent;
 }

@@ -16,8 +16,17 @@ public class EnemyActor : Actor
     protected override void Start()
     {
         base.Start();
-        deathEvent += Die;
         _activeEnemies.AddNewEnemyActor(this);
+    }
+
+    private void OnEnable() 
+    {
+        deathEvent += Die;
+        
+    }
+
+    private void OnDisable() {
+        deathEvent -= Die;
     }
     private void Die(Actor source)
     {
@@ -33,6 +42,7 @@ public class EnemyActor : Actor
     {
         PowerLevel = power + 1;
         HP = _baseHP * PowerLevel;
+        MaxHP = HP;
     }
 
     private IEnumerator BecomeAFossil(Actor source)

@@ -19,7 +19,19 @@ public class Spawner : MonoBehaviour
         if (_spawns.Length <= 0) return;
         
         // 1 + power = increased stats
-        ActorSpawnSettings newSpawn = _spawns[Random.Range(0, _spawns.Length)];
+        
+        List<ActorSpawnSettings> possible = new List<ActorSpawnSettings>();
+
+        bool shouldRollIfSameType = Random.value <= _sameTypeRerollChance;
+        for (int i = 0; i < _spawns.Length; i++)
+        {
+            if (_spawns[i].PowerLevelGate <= power + 1)
+            {
+                possible.Add(_spawns[i]);
+            }
+        }
+
+        ActorSpawnSettings newSpawn = possible[Random.Range(0, possible.Count)];
         // if (_lastSpawned != null &&
         //     newSpawn.Type == _lastSpawned.Type && newSpawn.Attack == _lastSpawned.Attack)
         // {

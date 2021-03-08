@@ -18,7 +18,7 @@ MonoBehaviour:
   maxVolume: 1
   pitch: 1
   randomizePitch: 1
-  minPitch: 0.9
-  maxPitch: 1
+  minPitch: 0.8
+  maxPitch: 1.1
   audioCueMixer: {fileID: 7841034370613282254, guid: eba21e859d881dd4285862f551f2bd8b,
     type: 2}

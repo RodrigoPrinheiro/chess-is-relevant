@@ -1,8 +1,9 @@
-﻿Shader "Hidden/PixelShader"
+﻿Shader "Custom/PixelShader"
 {
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _PixelDensity("Pixel Density", Float) = 64
     }
     SubShader
     {

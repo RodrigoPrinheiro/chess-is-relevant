@@ -4933,7 +4933,7 @@ GameObject:
   - component: {fileID: 3863223986315012231}
   - component: {fileID: 8110341376423512610}
   m_Layer: 8
-  m_Name: Particle System
+  m_Name: MuzzleFlashParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4969,7 +4969,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -9869,6 +9869,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6732495989943916012}
   - component: {fileID: 4746430513336125289}
+  - component: {fileID: 5188238146047097306}
   - component: {fileID: 3495861098808716467}
   m_Layer: 8
   m_Name: weapon
@@ -9976,6 +9977,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5188238146047097306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6732495989943916013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de812bf0ffbedec4ebb6689f26cf6ce9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletHitPrefab: {fileID: 6227323609010248142, guid: faa104e3253dd564b802b18f995fa142,
+    type: 3}
 --- !u!114 &3495861098808716467
 MonoBehaviour:
   m_ObjectHideFlags: 0
