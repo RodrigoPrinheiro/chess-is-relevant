@@ -5,6 +5,7 @@ public class ActorSpawnSettings : ScriptableObject
 {
     [SerializeField] private MovementType _type;
     [SerializeField] private AttackType _attackType;
+    [SerializeField] private float _moveSpeed = 50f;
     [SerializeField] private float _powerLevelGate = 1f;
     [SerializeField] private EnemyActor _prefab;
     [SerializeField] private float _distanceToOtherSpawn;
@@ -17,6 +18,7 @@ public class ActorSpawnSettings : ScriptableObject
     public float PowerLevelGate => _powerLevelGate;
     public MovementType Type => _type;
     public AttackType Attack => _attackType;
+    public float MoveSpeed => _moveSpeed;
 }
 
 public enum EnemyType

@@ -19,6 +19,8 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private float _roundTime = 60f;
     [SerializeField] private float _timeBetweenWaves = 3f;
     [SerializeField] private Spawner _spawner;
+    [Header("Debug")]
+    [SerializeField] private bool _debugWaves;
     private float _rate;
     private float _time;
     private int _kills;
@@ -63,7 +65,9 @@ public class WaveManager : MonoBehaviour
 
     private void NewWave()
     {
-        Debug.Log("New Wave");
+        if (_debugWaves)
+            Debug.Log("New Wave");
+        
         CurrentWaveState = WaveState.STOPPED;
         // Increment wave and call new wave event
         _wave++;
@@ -94,7 +98,8 @@ public class WaveManager : MonoBehaviour
             // Reset spawn timer
             _time = (UnityEngine.Random.Range(0.7f, 1f) * _roundTime) / _rate;
             // _time *= Mathf.Sqrt(_monsterPowerLevel);
-            Debug.Log("Next Spawn in: " + _time + "seconds. Power Level: " + _monsterPowerLevel);
+            if (_debugWaves)
+                Debug.Log("Next Spawn in: " + _time + "seconds. Power Level: " + _monsterPowerLevel);
         }
     }
 

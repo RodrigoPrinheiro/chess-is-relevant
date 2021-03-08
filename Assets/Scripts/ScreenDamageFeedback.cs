@@ -7,6 +7,7 @@ public class ScreenDamageFeedback : MonoBehaviour
 {
     [SerializeField] private Image _bloodImage;
     protected PlayerActor player;
+    private float _baseEffectPercentage;
 
     protected virtual void Awake()
     {
@@ -27,7 +28,13 @@ public class ScreenDamageFeedback : MonoBehaviour
     public virtual void Effect(float damage)
     {
         float percentageDmg = damage / player.MaxHP;
-        _bloodImage.CrossFadeAlpha(percentageDmg, 0f, false);
-        _bloodImage.CrossFadeAlpha(0.0f, 1f, false);
+        
+        // If the player is at 50% hp then let the effect stay on screen;
+        if (player.HP < player.MaxHP / 2)
+            _baseEffectPercentage += (percentageDmg / 2);
+        
+        _bloodImage.CrossFadeAlpha(_baseEffectPercentage + percentageDmg, 0f, false);
+        _bloodImage.CrossFadeAlpha(_baseEffectPercentage, 1f, false);
+        Debug.Log(player.HP);
     }
 }

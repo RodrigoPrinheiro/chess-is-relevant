@@ -1215,6 +1215,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 75
   _maxMovespeed: 350
+  _jumpHeight: 3
+  _jumpCount: 2
   _drag: 3
   _cameraAnchor: {fileID: 1887287803}
   _camera: {fileID: 963194228}
@@ -5508,6 +5510,7 @@ MonoBehaviour:
   _roundTime: 60
   _timeBetweenWaves: 3
   _spawner: {fileID: 1693007147}
+  _debugWaves: 0
 --- !u!4 &1693007146
 Transform:
   m_ObjectHideFlags: 0

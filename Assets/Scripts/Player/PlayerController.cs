@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _moveSpeed = 20f;
 
     [SerializeField] private float _maxMovespeed = 350f;
+    [SerializeField] private float _jumpHeight = 1.5f;
+    [SerializeField] private int _jumpCount = 1;
     [SerializeField] private float _drag = 3f;
 
     [Header("Camera Variables")]
@@ -20,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 _input;
     private Vector3 _velocity;
     private CharacterController _cc;
+    private int _jumps;
     public float MouseSensitivity { get => _mouseSensitivity; set => _mouseSensitivity = value; }
     public float MoveSpeed { get => _moveSpeed; set => _moveSpeed = value; }
 
@@ -42,10 +45,29 @@ public class PlayerController : MonoBehaviour
     private void UpdateMovement()
     {
         _velocity += _moveSpeed * Time.deltaTime * _input;
-        _velocity *= (1 - _drag * Time.deltaTime);
+        _velocity.x *= (1 - _drag * Time.deltaTime);
+        _velocity.z *= (1 - _drag * Time.deltaTime);
+        
+        // If its grounded make sure to reset jump count and velocity
+        if (_cc.isGrounded)
+        {
+            _velocity.y = 0;
+            _jumps = _jumpCount;
+        } 
 
-        _velocity.y = _cc.isGrounded ? 0 : Physics.gravity.y * Time.deltaTime;
-        _velocity = Vector3.ClampMagnitude(_velocity, _maxMovespeed);
+        // Jump stuff
+        if (Input.GetButtonDown("Jump") && _jumps > 0)
+        {
+            _velocity.y += Mathf.Sqrt(_jumpHeight * -3.0f * Physics.gravity.y);
+            _jumps--;
+        }
+        
+
+        // Gravity x2
+        _velocity.y += Physics.gravity.y * Time.deltaTime * 2f;
+
+        _velocity.x = Mathf.Clamp(_velocity.x, -_maxMovespeed, _maxMovespeed);
+        _velocity.z = Mathf.Clamp(_velocity.z, -_maxMovespeed, _maxMovespeed);
         _cc.Move(_velocity * Time.deltaTime);
     }
 
