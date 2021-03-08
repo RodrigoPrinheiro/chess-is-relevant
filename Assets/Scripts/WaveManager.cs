@@ -39,6 +39,7 @@ public class WaveManager : MonoBehaviour
         _rate = _initialRate;
 
         StartCoroutine(WaitBetweenWaves());
+        CurrentWaveState = WaveState.STOPPED;
     }
 
     // Update is called once per frame
@@ -57,7 +58,7 @@ public class WaveManager : MonoBehaviour
         }
 
         // Manage Spawns
-        if (CurrentWaveState.Equals(WaveState.RUNNING))
+        if (CurrentWaveState == WaveState.RUNNING)
         {
             ManageSpawns();
         }
@@ -129,7 +130,10 @@ public class WaveManager : MonoBehaviour
 
         // Create new wave time
         _waveTimeCounter = _lastWaveTime + (GROWTH_RATE * _kills * 3f);
-        Debug.Log("Next Wave in: " + (_waveTimeCounter / 60f) + " minutes");
+        
+        if (_debugWaves)
+            Debug.Log("Next Wave in: " + (_waveTimeCounter / 60f) + " minutes");
+        
         CurrentWaveState = WaveState.RUNNING;
     }
 
