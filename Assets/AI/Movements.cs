@@ -1,42 +1,58 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
-using System;
 
 public class Movements
 {
-    private Transform _position;
-    private Transform _player;
+    private readonly Actor _owner;
+    private readonly Transform _player;
+    private readonly float _minDistanceToPlayer;
 
-    public Movements(Transform pos, Transform player)
+    public Movements(Actor pos, Transform player, float minDist)
     {
-        _position = pos;
+        _owner = pos;
         _player = player;
+        _minDistanceToPlayer = minDist;
     }
 
     private Vector3 GroundMovement()
     {
-        Vector3 dir = _player.position - _position.position;
+        if (isAtMinDist())
+        {
+            return Vector3.zero;
+        }
+
+        Vector3 dir = (_player.position - _owner.transform.position).normalized;
+
         dir.y = 0;
-        return dir.normalized;
+
+        return dir;
     }
 
     private Vector3 AirMovement()
     {
-        Vector3 dir = _player.position - _position.position;
-        dir.y = 0;
+        if (isAtMinDist())
+        {
+            return new Vector3(0, -0.5f, 0);
+        }
 
-        if (_position.position.y < 5)
+        Vector3 dir = (_player.position - _owner.transform.position).normalized;
+
+        if (_owner.transform.position.y < 5)
         {
             dir.y = 1;
         }
 
-        return dir.normalized;
+        return dir;
     }
 
-    private Vector3 MixedMovement()
+    private bool isAtMinDist()
     {
-        return Vector3.zero;
+        Vector3 player = _player.position;
+        player.y = 0;
+        Vector3 owner = _owner.transform.position;
+        owner.y = 0;
+
+        return (Vector3.Distance(player, owner) <= _minDistanceToPlayer);
     }
 
     public Func<Vector3> ChooseMovement(Movements mov, MovementType movType)
@@ -45,8 +61,10 @@ public class Movements
         {
             case (MovementType.Ground):
                 return new Func<Vector3>(mov.GroundMovement);
+
             case (MovementType.Air):
                 return new Func<Vector3>(mov.AirMovement);
+
             default:
                 return null;
         }

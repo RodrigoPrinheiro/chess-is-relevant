@@ -1,6 +1,5 @@
-﻿using System.Collections;
+﻿using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
@@ -9,6 +8,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] private Vector3 _arenaDimensions;
     private Transform _playerTransform;
     private ActorSpawnSettings _lastSpawned;
+
     private void Awake()
     {
         _playerTransform = FindObjectOfType<PlayerActor>().transform;
@@ -17,7 +17,7 @@ public class Spawner : MonoBehaviour
     public void Spawn(float power)
     {
         if (_spawns.Length <= 0) return;
-        
+
         // 1 + power = increased stats
         
         List<ActorSpawnSettings> possible = new List<ActorSpawnSettings>();
@@ -38,10 +38,10 @@ public class Spawner : MonoBehaviour
         //     if (Random.value < _sameTypeRerollChance)
         //     {
         //         ActorSpawnSettings first = newSpawn;
-                
+
         //         while(newSpawn == first)
         //             newSpawn = _spawns[Random.Range(0, _spawns.Length)];
-        //     }     
+        //     }
         // }
 
         EnemyActor spawned = Create(newSpawn);
@@ -52,12 +52,12 @@ public class Spawner : MonoBehaviour
 
     private EnemyActor Create(ActorSpawnSettings spawn)
     {
-        EnemyActor newEnemy = null;
         // get random direction,
         float angle = Random.Range(0.0f, Mathf.PI * 2);
         Vector3 dir = new Vector3(Mathf.Sin(angle), 0.0f, Mathf.Cos(angle));
+
         // If its a flying enemy get random y direction aswell,
-        if (spawn.Type == EnemyType.Flying)
+        if (spawn.Type == MovementType.Air)
         {
             dir.y = Random.Range(0, 1);
             dir.Normalize();
@@ -70,12 +70,16 @@ public class Spawner : MonoBehaviour
         pos.y = Mathf.Clamp(pos.y, 0, _arenaDimensions.y);
 
         // Instantiate
-        newEnemy = Instantiate<EnemyActor>(spawn.Prefab, pos, Quaternion.identity);
+        EnemyActor newEnemy = Instantiate(spawn.Prefab, pos, Quaternion.identity);
+
+        AIEntity ai = newEnemy.gameObject.AddComponent<AIEntity>();
+        ai.SetAttackAndMovementMode(spawn.Attack, spawn.Type, 50);
 
         return newEnemy;
     }
 
-    private void OnDrawGizmos() {
+    private void OnDrawGizmos()
+    {
         Gizmos.color = Color.blue;
         Vector3 center = Vector3.zero + Vector3.up * (_arenaDimensions.y / 2);
         Gizmos.DrawWireCube(center, _arenaDimensions);

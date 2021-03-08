@@ -1,28 +1,40 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
-using System;
 
 public class Attacks
 {
-    public Transform Position { get; }
-    public Transform Player { get; }
+    private readonly Actor _owner;
+    private readonly Transform _player;
 
+    private readonly float _damage;
+    private readonly float _attackRange;
 
-    public Attacks(Transform pos, Transform player)
+    public Attacks(Actor pos, Transform player, float damage, float attackRange)
     {
-        Position = pos;
-        Player = player;
+        _owner = pos;
+        _player = player;
+        _damage = damage;
+        _attackRange = attackRange;
     }
 
     private void MeleeAttack()
     {
-        throw new System.NotImplementedException();
+        Collider[] cols = Physics.OverlapSphere(_owner.transform.position + _owner.transform.forward, _attackRange);
+
+        for (int i = 0; i < cols.Length; i++)
+        {
+            if (cols[i].gameObject.TryGetComponent(out Actor _player))
+            {
+                Debug.Log("Hit player");
+                _player.Damage(_owner, _damage);
+                break;
+            }
+        }
     }
 
     private void RangedAttack()
     {
-        throw new System.NotImplementedException();
+        Vector3 dir = _owner.transform.position - _player.position;
     }
 
     public Action ChooseAttack(Attacks attk, AttackType attkType)
@@ -31,8 +43,10 @@ public class Attacks
         {
             case (AttackType.Melee):
                 return new Action(attk.MeleeAttack);
+
             case (AttackType.Ranged):
                 return new Action(attk.RangedAttack);
+
             default: return null;
         }
     }
