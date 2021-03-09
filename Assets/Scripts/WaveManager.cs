@@ -45,8 +45,6 @@ public class WaveManager : MonoBehaviour
         CurrentWaveState = WaveState.STOPPED;
     }
 
-    
-
     // Update is called once per frame
     void Update()
     {
@@ -58,8 +56,8 @@ public class WaveManager : MonoBehaviour
             if (_waveTimeCounter <= 0.0f)
             {
                 CurrentWaveState = WaveState.STOPPED;
-                
-                waveEndEvent?.Invoke(_wave);
+
+                WaveEnd();
 
                 if (_debugWaves)
                     Debug.Log("Wave end: " + CurrentWaveState + "\n Enemies remaining: " + _activeEnemiesSO.ActiveEnemiesCount + "\n Upgrade available: " + _upgrades.Active);
@@ -96,6 +94,13 @@ public class WaveManager : MonoBehaviour
         
         // Create new wave time and set waves to Running
         StartCoroutine(WaitBetweenWaves());
+    }
+
+    private void WaveEnd()
+    {
+        _upgrades.EnableUpgrade();
+        
+        waveEndEvent?.Invoke(_wave);
     }
 #region EnemySpawnManagement
     private void ManageSpawns()

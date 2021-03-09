@@ -4,29 +4,49 @@ using UnityEngine;
 
 public class UpgradeBooth : MonoBehaviour
 {
-    private WaveManager _waveManager;
+    [SerializeField] private ParticleSystem _upgradeParticleSystem;
+    [SerializeField] private AudioCue _onPickUpCue;
+    [SerializeField] private AudioCue _onEnableCue;
     public bool Active {get; private set;}
 
-    private void Awake() {
-        // Wave Manager for event
-        _waveManager = FindObjectOfType<WaveManager>();
-    }
-    
-    private void OnEnable() 
+    private void Awake() 
     {
-        _waveManager.waveEndEvent += NewUpgrade;
+        _upgradeParticleSystem?.gameObject.SetActive(false);
+        Active = false;
     }
-
-    private void OnDisable() 
-    {
-        _waveManager.waveEndEvent -= NewUpgrade;
-    }
-
 
     // Called when a new wave is thrown
-    public void NewUpgrade(int wave)
+    public void EnableUpgrade()
     {
-        
+        Active = true;
+
+        // Visual & audio
+        _onEnableCue?.Play();
+        _upgradeParticleSystem?.gameObject.SetActive(true);
+    }
+
+    private void OnTriggerEnter(Collider other) 
+    {
+        if (!Active) return;
+
+        // If the collision is with the player
+        if (other.TryGetComponent<PlayerActor>(out PlayerActor player))
+        {
+            // Give Upgrade
+            GiveUpgrade(player);
+        }
+    }
+
+    private void GiveUpgrade(PlayerActor player)
+    {
+        _onPickUpCue?.Play();
+        // Get weapons
+        WeaponsController playerWeapons = player.GetComponent<WeaponsController>();
+
+        // Build the upgrade to be applied
+
+        Active = false;
+        _upgradeParticleSystem?.gameObject.SetActive(false);
     }
 
 }

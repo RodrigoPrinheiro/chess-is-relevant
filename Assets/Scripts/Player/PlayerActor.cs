@@ -1,4 +1,6 @@
-﻿public class PlayerActor : Actor
+﻿using UnityEngine;
+
+public class PlayerActor : Actor
 {
     // Start is called before the first frame update
     protected override void Start()
@@ -18,5 +20,6 @@
     // Update is called once per frame
     private void Update()
     {
+
     }
 }
