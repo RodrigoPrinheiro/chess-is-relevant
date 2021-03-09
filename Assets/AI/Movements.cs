@@ -16,7 +16,7 @@ public class Movements
 
     private Vector3 GroundMovement()
     {
-        if (isAtMinDist())
+        if (IsAtMinDist())
         {
             return Vector3.zero;
         }
@@ -27,32 +27,63 @@ public class Movements
 
         return dir;
     }
-
+    private float _rotateTimer;
+    private float _attackTimer;
+    private readonly float _timeBetweenAttacks = 20f;
+    private bool continueCircle;
     private Vector3 AirMovement()
     {
-        if (isAtMinDist())
+        _attackTimer += Time.deltaTime;
+        _rotateTimer += Time.deltaTime * 0.2f;
+
+        if (Vector3.Distance(_owner.transform.position, _player.position) < 1.5f)
         {
-            return new Vector3(0, -0.5f, 0);
+            _attackTimer = 0;
         }
 
-        Vector3 dir = (_player.position - _owner.transform.position).normalized;
+        Vector3 dir;
 
-        if (_owner.transform.position.y < 5)
+        // Atack player
+        if (_attackTimer >= _timeBetweenAttacks &&
+            IsAtMinDist(_minDistanceToPlayer + 15f))
         {
-            dir.y = 1;
+            dir = (_player.position - _owner.transform.position).normalized * 5;
+        }
+        else
+        {
+            // Go up after the attack
+            if (_owner.transform.position.y < 15)
+            {
+                dir = _owner.transform.forward;
+                dir.y = 5f;
+            }
+            // Circle player if close
+            else if (IsAtMinDist() || continueCircle)
+            {
+                continueCircle = IsAtMinDist(_minDistanceToPlayer + 15f);
+                dir = new Vector3(Mathf.Sin(_rotateTimer), 0.2f, Mathf.Cos(_rotateTimer));
+            }
+            // Go to player
+            else
+            {
+                dir = (_player.position - _owner.transform.position).normalized;
+                dir.y = 0.2f;
+            }
         }
 
         return dir;
     }
 
-    private bool isAtMinDist()
+    private bool IsAtMinDist(float target = 0)
     {
         Vector3 player = _player.position;
         player.y = 0;
         Vector3 owner = _owner.transform.position;
         owner.y = 0;
 
-        return (Vector3.Distance(player, owner) <= _minDistanceToPlayer);
+        float compare = target == 0 ? _minDistanceToPlayer : target;
+
+        return (Vector3.Distance(player, owner) <= compare);
     }
 
     public Func<Vector3> ChooseMovement(Movements mov, MovementType movType)

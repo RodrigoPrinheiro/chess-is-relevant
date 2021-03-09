@@ -18,7 +18,7 @@ public class AIEntity : MonoBehaviour
         _owner = GetComponent<Actor>();
 
         float attkrange = movType == MovementType.Ground ? 1.5f : 4f;
-        float minDist = movType == MovementType.Ground ? 1f : 6f;
+        float minDist = movType == MovementType.Ground ? 1f : 15f;
 
         Movements mov = new Movements(_owner, _player, minDist);
         Attacks attk = new Attacks(_owner, _player, 10, attkrange);
@@ -31,10 +31,12 @@ public class AIEntity : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        transform.LookAt(_direction.y == 0 ? (_direction + transform.position) : _player.position);
+        Vector3 oldDir = _direction;
 
         _direction = _movement.Invoke() * _speed;
         _attack?.Invoke();
+
+        transform.LookAt(Vector3.Lerp(oldDir, _direction, 0.5f));
     }
 
     private void FixedUpdate()

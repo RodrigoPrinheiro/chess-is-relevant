@@ -9,8 +9,11 @@ public class Attacks
     private readonly float _damage;
     private readonly float _attackRange;
 
+    //private GameObject _bulletPrefab;
+
     public Attacks(Actor pos, Transform player, float damage, float attackRange)
     {
+        
         _owner = pos;
         _player = player;
         _damage = damage;
@@ -34,7 +37,7 @@ public class Attacks
 
     private void RangedAttack()
     {
-        Vector3 dir = _owner.transform.position - _player.position;
+        GameObject.Instantiate(GameObject.Find("Bullet"), _owner.transform.position, Quaternion.LookRotation(_player.position - _owner.transform.position, Vector3.up));
     }
 
     public Action ChooseAttack(Attacks attk, AttackType attkType)
