@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        _input = (_cameraAnchor.forward * Input.GetAxis("Vertical")) + (_cameraAnchor.right * Input.GetAxis("Horizontal"));
+        _input = (_cameraAnchor.forward * Input.GetAxis("Vertical")) + (_cameraAnchor.right * Input.GetAxis("Horizontal")).normalized;
         UpdateMovement();
         UpdateCamera();
     }

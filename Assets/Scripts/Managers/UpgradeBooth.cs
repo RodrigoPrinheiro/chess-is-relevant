@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class UpgradeBooth : MonoBehaviour
 {
+    [Header("Upgrades")]
+    [SerializeField] private WeaponUpgrade _rightWeaponUpgrade;
+    [SerializeField] private WeaponUpgrade _leftWeaponUpgrade;
+    [Header("Visual & Audio Elements")]
     [SerializeField] private ParticleSystem _upgradeParticleSystem;
     [SerializeField] private AudioCue _onPickUpCue;
     [SerializeField] private AudioCue _onEnableCue;
@@ -42,8 +46,9 @@ public class UpgradeBooth : MonoBehaviour
         _onPickUpCue?.Play();
         // Get weapons
         WeaponsController playerWeapons = player.GetComponent<WeaponsController>();
+        playerWeapons.Right.UpgradeWeapon(_rightWeaponUpgrade); 
+        playerWeapons.Left.UpgradeWeapon(_leftWeaponUpgrade); 
 
-        // Build the upgrade to be applied
 
         Active = false;
         _upgradeParticleSystem?.gameObject.SetActive(false);

@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Weapon : MonoBehaviour
 {
     const float SPREAD_PER_PROJECTILE = 0.015f;
+    const float MAX_BPS = 30f;
+    const float MIN_BPS = 0.2f;
     [SerializeField] private Transform _head;
     [SerializeField] private Camera _fpsCamera;
 
@@ -151,6 +154,16 @@ public class Weapon : MonoBehaviour
 
     public void UpgradeWeapon(WeaponUpgrade upgrade)
     {
+        _weaponRange += upgrade.range;
+        _weaponDamage += upgrade.damage;
+        _weaponBPS += upgrade.bps;
+        _projectiles += upgrade.projectiles;
+
+        _weaponBPS = Mathf.Clamp(_weaponBPS, MIN_BPS, MAX_BPS);
+        _weaponRange = Mathf.Max(_weaponRange, 5f);
+        _weaponDamage = Mathf.Max(_weaponDamage, 1f);
+        _projectiles = Mathf.Max(_projectiles, 1);
+        
         SetupWeapon();
     }
 
@@ -180,6 +193,7 @@ public class Weapon : MonoBehaviour
     public Action shootFailedEvent;
 }
 
+[System.Serializable]
 public struct WeaponUpgrade
 {
     public float damage;
