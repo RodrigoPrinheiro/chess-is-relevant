@@ -44,7 +44,9 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateMovement()
     {
-        _velocity += _moveSpeed * Time.deltaTime * _input;
+        Vector3 inputCopy = _input;
+        inputCopy.y = 0;
+        _velocity += _moveSpeed * Time.deltaTime * inputCopy;
         _velocity.x *= (1 - _drag * Time.deltaTime);
         _velocity.z *= (1 - _drag * Time.deltaTime);
         

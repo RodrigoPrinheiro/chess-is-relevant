@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class WeaponsController : MonoBehaviour
 {
@@ -9,6 +10,16 @@ public class WeaponsController : MonoBehaviour
     private Actor _ownerActor;
     private Vector2 _currentGunBob;
     private float _stepTimeCounter;
+
+    // Get weapons in no particular order
+    public IEnumerator<Weapon> Weapons
+    {
+        get 
+        {
+            yield return _leftWeapon;            
+            yield return _rightWeapon;
+        }
+    }
 
     private void Awake()
     {

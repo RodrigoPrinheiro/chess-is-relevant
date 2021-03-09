@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    const float SPREAD_PER_PROJECTILE = 0.015f;
     [SerializeField] private Transform _head;
     [SerializeField] private Camera _fpsCamera;
 
@@ -14,6 +15,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private float _weaponDamage = 10f;
     [SerializeField] private float _weaponRange = 30f;
     [SerializeField] private float _weaponBPS = 2;
+    [SerializeField, Range(0, 1000)] private int _projectilesOverride = 0;
     [SerializeField, Range(0, 1)] private float _recoilXAxis;
     [SerializeField, Range(0, 1)] private float _recoilYAxis;
     [SerializeField, Range(5, 50)] private float _kickDecay = 25f;
@@ -48,14 +50,25 @@ public class Weapon : MonoBehaviour
     private WaitForSeconds _bulletLineScreenTime;
     private Vector3 _originalPos;
     private Vector2 _recoilRemaining;
+    private float _spread;
+    private int _projectiles;
+    private Pool<LineRenderer> _bulletLinePool;
     public Vector3 OriginalPos => _originalPos;
 
     private void Awake()
     {
-        _cooldown = 1 / _weaponBPS;
+        // Setup
+        _projectiles = _projectilesOverride != 0 ? _projectilesOverride : 1;
         _bulletLineScreenTime = new WaitForSeconds(_visibleTime);
-        _bulletLine.enabled = false;
         _originalPos = transform.localPosition;
+
+        // Bullet line
+        _bulletLinePool = new Pool<LineRenderer>(_bulletLine, transform);
+        _bulletLinePool.SetRequestCondition((l) => !l.enabled);
+        _bulletLinePool.Initialize(_projectiles);
+
+        // Weapon settings Setup
+        SetupWeapon();
     }
 
     private void Update()
@@ -88,7 +101,29 @@ public class Weapon : MonoBehaviour
 
         shootEvent?.Invoke();
 
+        // Get the default ray and record it to a variable
         Ray ray = _fpsCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
+        Ray defaultRay = ray;
+
+        // For each projectile in the weapon, give spread and shoot it using the new ray
+        for (int i = 0; i < _projectiles; i++)
+        {
+            ray = defaultRay;
+
+            ray.direction += new Vector3(
+            UnityEngine.Random.Range(-_spread, _spread),
+            UnityEngine.Random.Range(-_spread, _spread),
+            UnityEngine.Random.Range(-_spread, _spread));
+
+            // Shoot weapon (what it had before this new adition basically)
+            ShootRay(ray, owner);
+        }
+
+        CanShoot = false;
+    }
+
+    private void ShootRay(Ray ray, Actor owner)
+    {
 
         Debug.DrawRay(ray.origin, ray.direction * _weaponRange, Color.green, 0.6f);
 
@@ -106,31 +141,49 @@ public class Weapon : MonoBehaviour
         {
             ShowBulletLine(ray.origin + ray.direction * _weaponRange);
         }
+    }
 
-        CanShoot = false;
+    private void SetupWeapon()
+    {
+        _cooldown = 1 / _weaponBPS;
+        _spread = _projectiles * SPREAD_PER_PROJECTILE;
+    }
+
+    public void UpgradeWeapon(WeaponUpgrade upgrade)
+    {
+        SetupWeapon();
     }
 
     private void ShowBulletLine(Vector3 hitPoint)
     {
-        _bulletLine.enabled = true;
+        LineRenderer line = _bulletLinePool.Request();
+        line.enabled = true;
         // Position
-        _bulletLine.positionCount = 2;
-        _bulletLine.SetPosition(0, _muzzleTransform.position);
-        _bulletLine.SetPosition(1, hitPoint);
+        line.positionCount = 2;
+        line.SetPosition(0, _muzzleTransform.position);
+        line.SetPosition(1, hitPoint);
 
         // Color
-        _bulletLine.colorGradient = _lineGradient;
+        line.colorGradient = _lineGradient;
 
-        StartCoroutine(BulletLine());
+        StartCoroutine(BulletLine(line));
     }
 
-    private IEnumerator BulletLine()
+    private IEnumerator BulletLine(LineRenderer line)
     {
         yield return _bulletLineScreenTime;
-        _bulletLine.enabled = false;
+        line.enabled = false;
     }
 
     public UnityEngine.Events.UnityEvent shootEvent;
     public Action<RaycastHit> bulletHit;
     public Action shootFailedEvent;
+}
+
+public struct WeaponUpgrade
+{
+    public float damage;
+    public float range;
+    public float bps;
+    public int projectiles;
 }
