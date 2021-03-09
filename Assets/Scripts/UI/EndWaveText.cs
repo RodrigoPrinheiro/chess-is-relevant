@@ -5,6 +5,7 @@ using TMPro;
 
 public class EndWaveText : MonoBehaviour
 {
+    [SerializeField] private string _initialWaveText = "become#relevant";
     [SerializeField] private string[] _endWaveTexts;
     [SerializeField, Range(1f, 4f)] private float _defaultTextTime;
     [SerializeField] private TextMeshProUGUI _endWaveCenterText;
@@ -26,24 +27,34 @@ public class EndWaveText : MonoBehaviour
         _waves.newWaveEvent += ShowTextAnimation;
     }
 
+    private void Start() {
+        ShowTextAnimation(1);
+    }
+
     public void ShowTextAnimation(int wave)
     {
         _waveText.gameObject.SetActive(true);
         _endWaveCenterText.gameObject.SetActive(true);
 
         _waveText.text = $"Wave {wave}";
+        string[] textGroup;
+        if (wave == 1)
+        {
+            textGroup = _initialWaveText.Split('#');
+        }
+        else
+            textGroup = _endWaveTexts[Random.Range(0, _endWaveTexts.Length)].Split('#');
         
-        StartCoroutine(TextAnimation());
+        StartCoroutine(TextAnimation(textGroup));
         
     }
 
     //! WARNING, ENTERING SPAGHETTI CODE SECTION
-    private IEnumerator TextAnimation()
+    private IEnumerator TextAnimation(string[] textGroup)
     {
         LeanTween.alphaCanvas(_waveText.GetComponent<CanvasGroup>(), 1f, 0.8f);
 
         // Pick Random Text
-        string[] textGroup = _endWaveTexts[Random.Range(0, _endWaveTexts.Length)].Split('#');
         // Time per text line
         float time = _defaultTextTime / textGroup.Length; // Get a time per line so it matches default time
         WaitForSeconds waitTime = new WaitForSeconds(time);

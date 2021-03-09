@@ -25,7 +25,6 @@ public class EnemyActor : Actor
     private void OnEnable() 
     {
         deathEvent += Die;
-        
     }
 
     private void OnDisable() {

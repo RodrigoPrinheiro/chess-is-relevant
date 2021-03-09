@@ -7,6 +7,7 @@ public enum WaveState
 {
     RUNNING,
     STOPPED,
+    WAITING
 }
 
 public class WaveManager : MonoBehaviour
@@ -19,8 +20,11 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private float _roundTime = 60f;
     [SerializeField] private float _timeBetweenWaves = 3f;
     [SerializeField] private Spawner _spawner;
+    [SerializeField] private UpgradeBooth _upgrades;
+    [SerializeField] private ActiveEnemies _activeEnemiesSO;
     [Header("Debug")]
     [SerializeField] private bool _debugWaves;
+    [SerializeField] private bool _debugEnemies;
     private float _rate;
     private float _time;
     private int _kills;
@@ -35,12 +39,13 @@ public class WaveManager : MonoBehaviour
         Actor.staticActorDeathEvent += TrackDeaths;
 
         _lastWaveTime = _roundTime;
-        _wave = 1;
         _rate = _initialRate;
 
-        StartCoroutine(WaitBetweenWaves());
+        _activeEnemiesSO.ResetList();
         CurrentWaveState = WaveState.STOPPED;
     }
+
+    
 
     // Update is called once per frame
     void Update()
@@ -50,11 +55,23 @@ public class WaveManager : MonoBehaviour
             CurrentWaveState = WaveState.RUNNING;
             _waveTimeCounter -= Time.deltaTime;
 
-            
+            if (_waveTimeCounter <= 0.0f)
+            {
+                CurrentWaveState = WaveState.STOPPED;
+
+                if (_debugWaves)
+                    Debug.Log("Wave end: " + CurrentWaveState + "\n Enemies remaining: " + _activeEnemiesSO.ActiveEnemiesCount + "\n Upgrade available: " + _upgrades.Active);
+            }
         }
-        else if (CurrentWaveState == WaveState.RUNNING)
+        // If the waves are stopped
+        else if (CurrentWaveState == WaveState.STOPPED)
         {
-            NewWave();
+            // Await for no enemies and the upgrade gathered
+            if (_activeEnemiesSO.ActiveEnemiesCount <= 0 && !_upgrades.Active)
+            {
+                CurrentWaveState = WaveState.WAITING;
+                NewWave();
+            }
         }
 
         // Manage Spawns
@@ -69,12 +86,13 @@ public class WaveManager : MonoBehaviour
         if (_debugWaves)
             Debug.Log("New Wave");
         
-        CurrentWaveState = WaveState.STOPPED;
         // Increment wave and call new wave event
         _wave++;
         newWaveEvent?.Invoke(_wave);
 
-        // Create new wave time
+        _activeEnemiesSO.ResetList();
+        
+        // Create new wave time and set waves to Running
         StartCoroutine(WaitBetweenWaves());
     }
 
@@ -99,7 +117,7 @@ public class WaveManager : MonoBehaviour
             // Reset spawn timer
             _time = (UnityEngine.Random.Range(0.7f, 1f) * _roundTime) / _rate;
             // _time *= Mathf.Sqrt(_monsterPowerLevel);
-            if (_debugWaves)
+            if (_debugWaves && _debugEnemies)
                 Debug.Log("Next Spawn in: " + _time + "seconds. Power Level: " + _monsterPowerLevel);
         }
     }

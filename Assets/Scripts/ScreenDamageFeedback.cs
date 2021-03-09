@@ -35,6 +35,5 @@ public class ScreenDamageFeedback : MonoBehaviour
         
         _bloodImage.CrossFadeAlpha(_baseEffectPercentage + percentageDmg, 0f, false);
         _bloodImage.CrossFadeAlpha(_baseEffectPercentage, 1f, false);
-        Debug.Log(player.HP);
     }
 }
