@@ -11,13 +11,16 @@ public class WeaponsController : MonoBehaviour
     private Vector2 _currentGunBob;
     private float _stepTimeCounter;
 
+    public Weapon Right => _rightWeapon;
+    public Weapon Left => _leftWeapon;
     // Get weapons in no particular order
-    public IEnumerator<Weapon> Weapons
+    public Weapon[] Weapons
     {
         get 
         {
-            yield return _leftWeapon;            
-            yield return _rightWeapon;
+            Weapon[] weapons = {_rightWeapon, _leftWeapon};
+        
+            return weapons;
         }
     }
 
