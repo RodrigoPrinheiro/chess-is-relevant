@@ -5,15 +5,25 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField, Range(0, 1)] private float _sameTypeRerollChance;
     [SerializeField] private ActorSpawnSettings[] _spawns;
+    [SerializeField] private ActorSpawnSettings[] _bosses;
     [SerializeField] private Vector3 _arenaDimensions;
     private Transform _playerTransform;
     private ActorSpawnSettings _lastSpawned;
+    private int _nextBossIndex;
 
     private void Awake()
     {
         _playerTransform = FindObjectOfType<PlayerActor>().transform;
     }
 
+    public void SpawnBoss(float power)
+    {
+        EnemyActor spawned = Create(_bosses[_nextBossIndex]);
+        spawned.SetPower(power);
+
+        if (_nextBossIndex + 1 < _bosses.Length)
+            _nextBossIndex++;
+    }
     public void Spawn(float power)
     {
         if (_spawns.Length <= 0) return;

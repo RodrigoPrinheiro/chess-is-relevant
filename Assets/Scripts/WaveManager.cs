@@ -111,21 +111,32 @@ public class WaveManager : MonoBehaviour
         }
         else
         {
-            float _maxMonsterStrength = _playerScore / 1000f;
-            float _monsterPowerLevel = UnityEngine.Random.value;
-            _monsterPowerLevel *= _monsterPowerLevel;
-            _monsterPowerLevel *= _maxMonsterStrength;
-
-            if (UnityEngine.Random.value >= 0.25f)
+            string powerLevel;
+            if ((_wave % 2) == 0)
             {
-                _spawner.Spawn(_monsterPowerLevel);
+                _spawner.SpawnBoss(UnityEngine.Random.value * 2);
+                powerLevel = "Boss";
+                _waveTimeCounter = 0.001f;
             }
+            else
+            {
+                float _maxMonsterStrength = _playerScore / 1000f;
+                float _monsterPowerLevel = UnityEngine.Random.value;
+                _monsterPowerLevel *= _monsterPowerLevel;
+                _monsterPowerLevel *= _maxMonsterStrength;
 
+                powerLevel = _monsterPowerLevel.ToString();
+
+                if (UnityEngine.Random.value >= 0.25f)
+                {
+                    _spawner.Spawn(_monsterPowerLevel);
+                }
+            }
             // Reset spawn timer
             _time = (UnityEngine.Random.Range(0.7f, 1f) * _roundTime) / _rate;
             // _time *= Mathf.Sqrt(_monsterPowerLevel);
             if (_debugWaves && _debugEnemies)
-                Debug.Log("Next Spawn in: " + _time + "seconds. Power Level: " + _monsterPowerLevel);
+                Debug.Log("Next Spawn in: " + _time + "seconds. Power Level: " + powerLevel);
         }
     }
 
