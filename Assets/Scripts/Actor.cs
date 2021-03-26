@@ -18,8 +18,8 @@ public class Actor : MonoBehaviour
 
     public virtual void Damage(Actor source, float damage)
     {
-        staticDamageEvent?.Invoke(source, this, damage);
-        hitEvent?.Invoke(damage);
+        StaticDamageEvent?.Invoke(source, this, damage);
+        HitEvent?.Invoke(damage);
         ReduceHP(source, damage);
     }
 
@@ -29,8 +29,8 @@ public class Actor : MonoBehaviour
 
         if (Dead())
         {
-            staticActorDeathEvent?.Invoke(source, this);
-            deathEvent?.Invoke(source);
+            StaticActorDeathEvent?.Invoke(source, this);
+            DeathEvent?.Invoke(source);
         }
     }
 
@@ -42,10 +42,10 @@ public class Actor : MonoBehaviour
     /// <summary>
     /// Takes in from whom the damage came from, who took the damage and the amount
     /// </summary>
-    public static event Action<Actor, Actor, float> staticDamageEvent;
+    public static event Action<Actor, Actor, float> StaticDamageEvent;
 
-    public static event Action<Actor, Actor> staticActorDeathEvent;
+    public static event Action<Actor, Actor> StaticActorDeathEvent;
 
-    public event Action<Actor> deathEvent;
-    public event Action<float> hitEvent;
+    public event Action<Actor> DeathEvent;
+    public event Action<float> HitEvent;
 }

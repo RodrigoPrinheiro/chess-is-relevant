@@ -17,12 +17,12 @@ public class ScreenDamageFeedback : MonoBehaviour
 
     private void OnEnable()
     {
-        player.hitEvent += Effect;
+        player.HitEvent += Effect;
     }
 
     private void OnDisable() 
     {
-        player.hitEvent -= Effect;
+        player.HitEvent -= Effect;
     }
 
     public virtual void Effect(float damage)

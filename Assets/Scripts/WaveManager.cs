@@ -36,7 +36,7 @@ public class WaveManager : MonoBehaviour
 
     private void Awake()
     {
-        Actor.staticActorDeathEvent += TrackDeaths;
+        Actor.StaticActorDeathEvent += TrackDeaths;
 
         _lastWaveTime = _roundTime;
         _rate = _initialRate;

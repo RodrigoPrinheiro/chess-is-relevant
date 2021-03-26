@@ -57,7 +57,7 @@ public class Spawner : MonoBehaviour
         Vector3 dir = new Vector3(Mathf.Sin(angle), 0.0f, Mathf.Cos(angle));
 
         // If its a flying enemy get random y direction aswell,
-        if (spawn.Type == MovementType.Air)
+        if (spawn.aiValues.MovementType == MovementType.Air)
         {
             dir.y = Random.Range(0.5f, 1);
             dir.Normalize();
@@ -73,7 +73,7 @@ public class Spawner : MonoBehaviour
         EnemyActor newEnemy = Instantiate(spawn.Prefab, pos, Quaternion.identity);
 
         AIEntity ai = newEnemy.gameObject.AddComponent<AIEntity>();
-        ai.SetAttackAndMovementMode(spawn.Attack, spawn.Type, spawn.MoveSpeed);
+        ai.Actor = spawn;
 
         return newEnemy;
     }

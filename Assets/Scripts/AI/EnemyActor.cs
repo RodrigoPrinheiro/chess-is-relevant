@@ -24,11 +24,11 @@ public class EnemyActor : Actor
 
     private void OnEnable() 
     {
-        deathEvent += Die;
+        DeathEvent += Die;
     }
 
     private void OnDisable() {
-        deathEvent -= Die;
+        DeathEvent -= Die;
     }
     private void Die(Actor source)
     {

@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1daf257cfc79e044baf9a2032a745c5f, type: 3}
   m_Name: Monopoly
   m_EditorClassIdentifier: 
-  _type: 0
-  _attackType: 1
+  aiValues: {fileID: 11400000, guid: ee941ba7a6181bf4da17cb3a0b3b901f, type: 2}
+  _prefab: {fileID: 5796785365225937875, guid: eaf7c8cadbb1388439b82c690f99e82b, type: 3}
   _moveSpeed: 50
   _powerLevelGate: 1
-  _prefab: {fileID: 5796785365225937875, guid: eaf7c8cadbb1388439b82c690f99e82b, type: 3}
   _distanceToOtherSpawn: 0
   _minDistance: 15
   _maxDistance: 40
