@@ -9,6 +9,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] private float _maxLifeTime;
     [SerializeField] private float _damage;
     [SerializeField] private float _speed = 100;
+    [SerializeField] private float _radius = 1f;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +19,7 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
-        Physics.SphereCast(transform.position + transform.forward, 1f, transform.forward, out RaycastHit hit, 2);
+        Physics.SphereCast(transform.position + transform.forward, _radius, transform.forward, out RaycastHit hit, 2);
 
         _aliveTime += Time.deltaTime;
         if (_aliveTime >= _maxLifeTime || hit.collider != null)
@@ -48,6 +49,6 @@ public class Projectile : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(transform.position + transform.forward, 1f);
+        Gizmos.DrawSphere(transform.position + transform.forward, _radius);
     }
 }
