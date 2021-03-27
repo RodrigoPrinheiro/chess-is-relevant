@@ -8242,10 +8242,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rightWeaponUpgrade:
-    damage: 20
+    damage: 30
     range: 1
-    bps: -1
-    projectiles: 0
+    bps: -0.4
+    projectiles: 1
   _leftWeaponUpgrade:
     damage: -0.6
     range: 0
@@ -15680,6 +15680,8 @@ MonoBehaviour:
   _spawns:
   - {fileID: 11400000, guid: b6e895585f8154c41ac0b0ff3a7db28f, type: 2}
   - {fileID: 11400000, guid: ae446fc2c7ea6194098b8f8b6f363c3c, type: 2}
+  _bosses:
+  - {fileID: 11400000, guid: d53c6059d630691479894fbda36364e8, type: 2}
   _arenaDimensions: {x: 190, y: 50, z: 190}
 --- !u!1 &1769320556
 GameObject:

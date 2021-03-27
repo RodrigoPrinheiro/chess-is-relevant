@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Boss01
   m_EditorClassIdentifier: 
   aiValues: {fileID: 11400000, guid: 621c5fb28379e114db1b45793782d8da, type: 2}
-  _prefab: {fileID: 5796785365225937875, guid: eaf7c8cadbb1388439b82c690f99e82b, type: 3}
+  _prefab: {fileID: 5796785365225937875, guid: 68cdcbe91892e7643b04bf1dcdc7ac22, type: 3}
   _moveSpeed: 10
   _powerLevelGate: 1
   _distanceToOtherSpawn: 0
-  _minDistance: 0
+  _minDistance: 10
   _maxDistance: 50

@@ -18,6 +18,9 @@ public class Spawner : MonoBehaviour
 
     public void SpawnBoss(float power)
     {
+        if (_bosses == null || _bosses.Length == 0)
+            return;
+
         EnemyActor spawned = Create(_bosses[_nextBossIndex]);
         spawned.SetPower(power);
 

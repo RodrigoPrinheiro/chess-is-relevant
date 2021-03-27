@@ -18,4 +18,4 @@ MonoBehaviour:
   _powerLevelGate: 1.02
   _distanceToOtherSpawn: 0
   _minDistance: 20
-  _maxDistance: 85
+  _maxDistance: 40

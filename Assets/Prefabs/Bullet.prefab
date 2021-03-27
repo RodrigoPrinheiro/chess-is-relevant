@@ -66,6 +66,7 @@ MonoBehaviour:
   _maxLifeTime: 10
   _damage: 10
   _speed: 60
+  _radius: 0.77
 --- !u!1 &8679722613711655280
 GameObject:
   m_ObjectHideFlags: 0
