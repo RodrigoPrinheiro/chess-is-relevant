@@ -9,13 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffa4517805c574e4da8e29b4a97013ce, type: 3}
-  m_Name: AI vals 1
+  m_Script: {fileID: 11500000, guid: 4368e88c8a2334746aa9f1de414625a5, type: 3}
+  m_Name: Player Max Health
   m_EditorClassIdentifier: 
-  _minDistanceToPlayer: 0
-  movType: 1
-  _attackType: 0
-  bullet: {fileID: 0}
-  _damage: 10
-  _attackRange: 0
-  _timeBetweenAttacks: 7
+  _value: 0

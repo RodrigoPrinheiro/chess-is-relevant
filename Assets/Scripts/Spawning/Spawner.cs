@@ -7,6 +7,9 @@ public class Spawner : MonoBehaviour
     [SerializeField] private ActorSpawnSettings[] _spawns;
     [SerializeField] private ActorSpawnSettings[] _bosses;
     [SerializeField] private Vector3 _arenaDimensions;
+    [Header("Health References for Health Bars")]
+    [SerializeField] private ModularVariables.FloatReference _bossHealthReference;
+    [SerializeField] private ModularVariables.FloatReference _bossMaxHealthReference;
     private Transform _playerTransform;
     private ActorSpawnSettings _lastSpawned;
     private int _nextBossIndex;
@@ -23,6 +26,12 @@ public class Spawner : MonoBehaviour
 
         EnemyActor spawned = Create(_bosses[_nextBossIndex]);
         spawned.SetPower(power);
+        
+        if (_bossHealthReference != null && _bossMaxHealthReference != null)
+        {
+            spawned.SetHealthReference(_bossHealthReference, _bossMaxHealthReference);
+            bossSpawnEvent?.Invoke();
+        }
 
         if (_nextBossIndex + 1 < _bosses.Length)
             _nextBossIndex++;
@@ -97,4 +106,6 @@ public class Spawner : MonoBehaviour
         Vector3 center = Vector3.zero + Vector3.up * (_arenaDimensions.y / 2);
         Gizmos.DrawWireCube(center, _arenaDimensions);
     }
+
+    static public event System.Action bossSpawnEvent;
 }

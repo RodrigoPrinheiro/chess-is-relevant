@@ -16,7 +16,7 @@ public class Weapon : MonoBehaviour
 
     [SerializeField] private Transform _muzzleTransform;
     [SerializeField] private float _weaponDamage = 10f;
-    [SerializeField] private float _weaponRange = 30f;
+    [SerializeField] private float _weaponRange = 60f;
     [SerializeField] private float _weaponBPS = 2;
     [SerializeField, Range(0, 1000)] private int _projectilesOverride = 0;
     [SerializeField, Range(0, 1)] private float _recoilXAxis;
