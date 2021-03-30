@@ -47,8 +47,10 @@ public class AISettings : ScriptableObject
     }
     private void OnEnable()
     {
-        _player = GameObject.FindGameObjectWithTag("Player").transform;
-        lastPpos = _player.position;
+        _player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        
+        if (_player)
+            lastPpos = _player.position;
     }
 
     private Vector3 GroundMovement(Transform owner)

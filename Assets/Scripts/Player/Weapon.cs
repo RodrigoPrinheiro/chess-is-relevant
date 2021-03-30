@@ -163,6 +163,8 @@ public class Weapon : MonoBehaviour
         _weaponRange = Mathf.Max(_weaponRange, 5f);
         _weaponDamage = Mathf.Max(_weaponDamage, 1f);
         _projectiles = Mathf.Max(_projectiles, 1);
+
+        weaponUpgradeEvent?.Invoke();
         
         SetupWeapon();
     }
@@ -191,6 +193,7 @@ public class Weapon : MonoBehaviour
     public UnityEngine.Events.UnityEvent shootEvent;
     public Action<RaycastHit> bulletHit;
     public Action shootFailedEvent;
+    public event Action weaponUpgradeEvent;
 }
 
 [System.Serializable]

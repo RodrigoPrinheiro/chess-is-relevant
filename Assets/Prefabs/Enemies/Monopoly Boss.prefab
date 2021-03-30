@@ -207,7 +207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b327154873eaddb49a46d3d917a2ef18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseHP: 300
+  _baseHP: 600
   _deathSound: {fileID: 3737210161153261049}
   _ragdollTime: 1
   _activeEnemies: {fileID: 11400000, guid: efcbcf559510322418c6729d44f8a182, type: 2}

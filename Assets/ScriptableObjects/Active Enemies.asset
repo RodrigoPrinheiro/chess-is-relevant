@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d60ea6e18f750af41a837172b1eb9487, type: 3}
   m_Name: Active Enemies
   m_EditorClassIdentifier: 
-  _debugObject: 1
+  _debugObject: 0

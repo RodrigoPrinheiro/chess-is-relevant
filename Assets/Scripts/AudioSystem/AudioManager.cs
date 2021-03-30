@@ -12,8 +12,9 @@ public class AudioManager : Singleton<AudioManager>
 
     private Pool<AudioSource> _pool;
 
-    private void Awake() 
+    public override void Awake() 
     {
+        base.Awake();
         _sfxChannel.audioRequest += PlayAudioCue;
         _musicChannel.audioRequest += PlayAudioCue;
         
