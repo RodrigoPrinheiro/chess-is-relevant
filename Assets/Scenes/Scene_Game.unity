@@ -801,7 +801,7 @@ GameObject:
   - component: {fileID: 180933485}
   - component: {fileID: 180933487}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Blood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1500,6 +1500,7 @@ GameObject:
   - component: {fileID: 325579707}
   - component: {fileID: 325579708}
   - component: {fileID: 325579706}
+  - component: {fileID: 325579710}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -1597,6 +1598,18 @@ MonoBehaviour:
     _useConstant: 0
     _constantValue: 0
     _modularValue: {fileID: 11400000, guid: f323881d92cc20e4bb6cd94303eecf9c, type: 2}
+--- !u!114 &325579710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 325579704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e882fb20878db846b4b7a60c0bfe6ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &395867967
 GameObject:
   m_ObjectHideFlags: 0
@@ -9103,7 +9116,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.8
+  m_Radius: 1.5
   m_Height: 4.76
   m_Direction: 1
   m_Center: {x: 0, y: 2.4, z: 0}
@@ -9212,7 +9225,7 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}

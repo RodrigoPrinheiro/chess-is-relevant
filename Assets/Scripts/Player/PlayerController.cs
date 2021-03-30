@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     public float MouseSensitivity { get => _mouseSensitivity; set => _mouseSensitivity = value; }
     public float MoveSpeed { get => _moveSpeed; set => _moveSpeed = value; }
     public bool Disable {get; set;}
+    public Transform MainCamera => _camera;
 
     private void Awake()
     {

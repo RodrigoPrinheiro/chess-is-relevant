@@ -26,6 +26,7 @@ public class GameManager : Singleton<GameManager>
         WaveManager waves = FindObjectOfType<WaveManager>();
         waves.CurrentWaveState = WaveState.CANCEL;
         
+        Debug.Log("End Game");
         gameEndEvent?.Invoke();
     }
 
