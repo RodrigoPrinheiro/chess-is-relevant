@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1daf257cfc79e044baf9a2032a745c5f, type: 3}
-  m_Name: Boss01
+  m_Name: Connect4
   m_EditorClassIdentifier: 
-  aiValues: {fileID: 11400000, guid: 621c5fb28379e114db1b45793782d8da, type: 2}
-  _prefab: {fileID: 5796785365225937875, guid: 68cdcbe91892e7643b04bf1dcdc7ac22, type: 3}
-  _moveSpeed: 10
+  aiValues: {fileID: 11400000, guid: bf0d213604d651242abfb610e70554ed, type: 2}
+  _prefab: {fileID: 1273751479632848864, guid: 66cb51bb4ad780a48825977de7c23050, type: 3}
+  _moveSpeed: 31.3
   _powerLevelGate: 1
   _distanceToOtherSpawn: 0
   _minDistance: 0

@@ -636,6 +636,7 @@ MonoBehaviour:
   - comsume#the competition
   - pawns#no longer
   - the queen#demands
+  - once a pawn#a time
   _defaultTextTime: 3
   _endWaveCenterText: {fileID: 283803945}
   _waveText: {fileID: 395867969}
@@ -8252,8 +8253,8 @@ MonoBehaviour:
     bps: 1
     projectiles: 0
   _upgradeParticleSystem: {fileID: 2041595217}
-  _onPickUpCue: {fileID: 0}
-  _onEnableCue: {fileID: 0}
+  _onPickUpCue: {fileID: 1492916803}
+  _onEnableCue: {fileID: 2050119500}
 --- !u!136 &938553784
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -14708,6 +14709,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1442064066}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1492916803 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3495861098808716467, guid: f74c7c1555796204f9afd42bfa552329,
+    type: 3}
+  m_PrefabInstance: {fileID: 6732495990311345941}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aec4c37d250a4c409961ae6bade9500, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1503630105
 GameObject:
   m_ObjectHideFlags: 0
@@ -15680,6 +15693,8 @@ MonoBehaviour:
   _spawns:
   - {fileID: 11400000, guid: b6e895585f8154c41ac0b0ff3a7db28f, type: 2}
   - {fileID: 11400000, guid: ae446fc2c7ea6194098b8f8b6f363c3c, type: 2}
+  _bosses:
+  - {fileID: 11400000, guid: d53c6059d630691479894fbda36364e8, type: 2}
   _arenaDimensions: {x: 190, y: 50, z: 190}
 --- !u!1 &1769320556
 GameObject:
@@ -21363,6 +21378,18 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &2050119500 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3495861098808716467, guid: f74c7c1555796204f9afd42bfa552329,
+    type: 3}
+  m_PrefabInstance: {fileID: 1358371902}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aec4c37d250a4c409961ae6bade9500, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2069816127
 GameObject:
   m_ObjectHideFlags: 0
