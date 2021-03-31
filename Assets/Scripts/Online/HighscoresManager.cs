@@ -10,11 +10,17 @@ public class HighscoresManager : MonoBehaviour
     const string webURL = "http://dreamlo.com/lb/";
 
     private List<Highscore> _highscores;
-    public List<Highscore> HighScores => _highscores;
 
     public void AddNewScore(string name, int score, float time)
     {
         StartCoroutine(UploadHighscore(name, score, time));
+    }
+
+    public List<Highscore> GetHighscores()
+    {
+        StartCoroutine(DownloadScores());
+
+        return _highscores;
     }
 
     private IEnumerator UploadHighscore(string name, int score, float time)
@@ -60,12 +66,12 @@ public class HighscoresManager : MonoBehaviour
             
             Highscore entry;
             entry.name = name;
-            entry.score = score;
+            entry.waves = score;
             entry.time = time;
 
             _highscores.Add(entry);
 
-            Debug.Log($"{_highscores[i].name} : {_highscores[i].score} : {_highscores[i].time}");
+            Debug.Log($"{_highscores[i].name} : {_highscores[i].waves} : {_highscores[i].time}");
         }
     }
 }
@@ -73,6 +79,6 @@ public class HighscoresManager : MonoBehaviour
 public struct Highscore
 {
     public string name;
-    public int score;
+    public int waves;
     public float time;
 }
