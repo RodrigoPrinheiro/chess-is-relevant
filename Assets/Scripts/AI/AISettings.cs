@@ -45,9 +45,9 @@ public class AISettings : ScriptableObject
             default: doAttack = null; break;
         };
     }
-    private void OnEnable()
+    public void Init(Transform pPos)
     {
-        _player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        _player = pPos;
         
         if (_player)
             lastPpos = _player.position;
