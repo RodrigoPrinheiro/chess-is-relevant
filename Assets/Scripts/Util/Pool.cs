@@ -26,7 +26,7 @@ public class Pool<T> where T : Component
         }
     }
 
-    public T Request()
+    public T Request(Func<T, bool> condition = null)
     {
         T available = null;
         for (int i = 0; i < _internalObjectStack.Count; i++)

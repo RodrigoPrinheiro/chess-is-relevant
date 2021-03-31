@@ -8,6 +8,7 @@ public class Actor : MonoBehaviour
     [SerializeField] protected float _baseHP = 100f;
     private FloatReference _healthReference;
     private FloatReference _maxHealthReference;
+    private bool _alive;
 
     public float HP { get; protected set; }
     public float MaxHP {get; protected set;}
@@ -17,6 +18,7 @@ public class Actor : MonoBehaviour
     {
         HP = _baseHP;
         MaxHP = _baseHP;
+        _alive = true;
     }
 
     public virtual void Damage(Actor source, float damage)
@@ -31,8 +33,9 @@ public class Actor : MonoBehaviour
         HP = Mathf.Max(0, HP - damage);
         if (_healthReference != null) _healthReference.Value = HP;
 
-        if (Dead())
+        if (Dead() && _alive)
         {
+            _alive = false;
             StaticActorDeathEvent?.Invoke(source, this);
             DeathEvent?.Invoke(source);
         }
