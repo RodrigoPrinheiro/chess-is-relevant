@@ -275,7 +275,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: -1036.64
+  m_Spacing: -350
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -4823,7 +4823,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -7965,51 +7965,6 @@ RectTransform:
   m_AnchoredPosition: {x: -45.799988, y: -88.00002}
   m_SizeDelta: {x: 20.32016, y: 195.1272}
   m_Pivot: {x: 1, y: 0.5}
---- !u!114 &1428846991959224744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1428846991959224748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa6c13dd76b231f4aae9377ace5313de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!225 &1428846991959224745
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1428846991959224748}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
---- !u!114 &1428846991959224746
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1428846991959224748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 012768f749bb1d848adc7ea0bc9a09f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _targetImage: {fileID: 1428846990602684401}
-  _currentHP:
-    _useConstant: 0
-    _constantValue: 0
-    _modularValue: {fileID: 11400000, guid: 2bbe7d52f06e59448973ffb098d314ed, type: 2}
-  _maxHP:
-    _useConstant: 0
-    _constantValue: 0
-    _modularValue: {fileID: 11400000, guid: b922fcc6d4b68eb499a62d68f600f167, type: 2}
 --- !u!222 &1428846991959224747
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8028,9 +7983,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1428846991959224749}
   - component: {fileID: 1428846991959224747}
-  - component: {fileID: 1428846991959224746}
-  - component: {fileID: 1428846991959224745}
-  - component: {fileID: 1428846991959224744}
   m_Layer: 5
   m_Name: Boss Health Bar
   m_TagString: Untagged
