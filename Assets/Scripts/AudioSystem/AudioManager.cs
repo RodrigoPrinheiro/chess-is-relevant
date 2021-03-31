@@ -11,21 +11,23 @@ public class AudioManager : Singleton<AudioManager>
     [SerializeField] AudioEventChannel _musicChannel;
 
     private Pool<AudioSource> _pool;
+    private List<AudioSource> _sources;
 
-    public override void Awake() 
+    public override void Awake()
     {
         base.Awake();
         _sfxChannel.audioRequest += PlayAudioCue;
         _musicChannel.audioRequest += PlayAudioCue;
-        
-        _pool = new Pool<AudioSource>(_sourcePrefab, transform);
-        _pool.Initialize(initialAudioPoolSize);
-        _pool.SetRequestCondition((s) => !s.isPlaying);
+
+        if (_sources == null)
+        {
+            _sources = new List<AudioSource>();
+        }
     }
 
     private void PlayAudioCue(AudioClip clip, AudioConfiguration configuration, Vector3 position)
     {
-        AudioSource playSource = _pool.Request();
+        AudioSource playSource = GetSource();
 
         if (playSource != null)
         {
@@ -39,5 +41,25 @@ public class AudioManager : Singleton<AudioManager>
             // Play
             playSource.Play();
         }
+    }
+
+    private AudioSource GetSource()
+    {
+        AudioSource source = null;
+        for (int i = 0; i < _sources.Count; i++)
+        {
+            if (!_sources[i].isPlaying)
+            {
+                source = _sources[i];
+            }
+        }
+
+        if (source == null)
+        {
+            GameObject obj = new GameObject("Manager Source");
+            source = obj.AddComponent<AudioSource>();
+        }
+        
+        return source;
     }
 }

@@ -7,11 +7,11 @@ public class SceneManager : MonoBehaviour
 {
     public void LoadMenu()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(0, LoadSceneMode.Single);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
 
     public void LoadGame()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(1, LoadSceneMode.Single);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
     }   
 }
