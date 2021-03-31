@@ -7,7 +7,8 @@ public enum WaveState
 {
     RUNNING,
     STOPPED,
-    WAITING
+    WAITING,
+    CANCEL
 }
 
 public class WaveManager : MonoBehaviour
@@ -32,7 +33,10 @@ public class WaveManager : MonoBehaviour
     private float _lastWaveTime;
     private float _waveTimeCounter;
     private float _playerScore;
+
+    private float _gameTime;
     public WaveState CurrentWaveState { get; set; }
+    public float GameTime => _gameTime;
 
     private void Awake()
     {
@@ -48,6 +52,8 @@ public class WaveManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (CurrentWaveState == WaveState.CANCEL) return;
+        _gameTime += Time.deltaTime;
         if (_waveTimeCounter > 0)
         {
             CurrentWaveState = WaveState.RUNNING;

@@ -17,5 +17,5 @@ MonoBehaviour:
   _moveSpeed: 10
   _powerLevelGate: 1
   _distanceToOtherSpawn: 0
-  _minDistance: 0
+  _minDistance: 10
   _maxDistance: 50

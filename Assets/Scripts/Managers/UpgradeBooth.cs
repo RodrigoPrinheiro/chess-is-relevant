@@ -11,7 +11,9 @@ public class UpgradeBooth : MonoBehaviour
     [SerializeField] private ParticleSystem _upgradeParticleSystem;
     [SerializeField] private AudioCue _onPickUpCue;
     [SerializeField] private AudioCue _onEnableCue;
+    [SerializeField] private MeshRenderer _bishopRenderer;
     public bool Active {get; private set;}
+    private bool Hand; // False left true right
 
     private void Awake() 
     {
@@ -23,6 +25,17 @@ public class UpgradeBooth : MonoBehaviour
     public void EnableUpgrade()
     {
         Active = true;
+        Hand = Random.value < 0.5f;
+
+        // Some spagheppi
+        if (Hand)
+        {
+            _bishopRenderer.material.color = Color.black;
+        }
+        else
+        {
+            _bishopRenderer.material.color = Color.white;
+        }
 
         // Visual & audio
         _onEnableCue?.Play();
@@ -46,8 +59,15 @@ public class UpgradeBooth : MonoBehaviour
         _onPickUpCue?.Play();
         // Get weapons
         WeaponsController playerWeapons = player.GetComponent<WeaponsController>();
-        playerWeapons.Right.UpgradeWeapon(_rightWeaponUpgrade); 
-        playerWeapons.Left.UpgradeWeapon(_leftWeaponUpgrade); 
+
+        if (Hand)
+        {
+            playerWeapons.Right.UpgradeWeapon(_rightWeaponUpgrade);
+        }
+        else
+        {
+            playerWeapons.Left.UpgradeWeapon(_leftWeaponUpgrade); 
+        }
 
 
         Active = false;

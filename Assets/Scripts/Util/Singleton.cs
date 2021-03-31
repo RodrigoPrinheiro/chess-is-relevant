@@ -3,15 +3,36 @@ using System;
 
 public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
-    private static readonly Lazy<T> LazyInstance = new Lazy<T>(CreateSingleton);
-
-    public static T Instance => LazyInstance.Value;
-
-    private static T CreateSingleton()
+    private static T _instance;
+    private static T Instance
     {
-        var ownerObject = new GameObject($"{typeof(T).Name} (singleton)");
-        var instance = ownerObject.AddComponent<T>();
-        DontDestroyOnLoad(ownerObject);
-        return instance;
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<T>();
+                if (_instance == null)
+                {
+                    GameObject obj = new GameObject($"{typeof(T).Name}_Singleton");
+                    obj.hideFlags = HideFlags.HideAndDontSave;
+                    _instance = obj.AddComponent<T>();
+                }
+
+            }
+            return _instance;
+        }
+    }
+
+    public virtual void Awake() 
+    {
+        if (_instance == null)
+        {
+            _instance = this as T;
+           DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }

@@ -25,9 +25,12 @@ public class PlayerController : MonoBehaviour
     private int _jumps;
     public float MouseSensitivity { get => _mouseSensitivity; set => _mouseSensitivity = value; }
     public float MoveSpeed { get => _moveSpeed; set => _moveSpeed = value; }
+    public bool Disable {get; set;}
+    public Transform MainCamera => _camera;
 
     private void Awake()
     {
+        // Disable = true;
         _cc = GetComponent<CharacterController>();
         _input = Vector2.zero;
         Cursor.visible = false;
@@ -37,6 +40,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (Disable) return;
         _input = (_cameraAnchor.forward * Input.GetAxis("Vertical")) + (_cameraAnchor.right * Input.GetAxis("Horizontal")).normalized;
         UpdateMovement();
         UpdateCamera();

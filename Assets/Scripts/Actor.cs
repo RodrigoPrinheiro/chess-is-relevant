@@ -1,10 +1,13 @@
 ﻿using System;
 using UnityEngine;
+using ModularVariables;
 
 public class Actor : MonoBehaviour
 {
     [Header("Actor Variables")]
     [SerializeField] protected float _baseHP = 100f;
+    private FloatReference _healthReference;
+    private FloatReference _maxHealthReference;
 
     public float HP { get; protected set; }
     public float MaxHP {get; protected set;}
@@ -26,6 +29,7 @@ public class Actor : MonoBehaviour
     protected virtual void ReduceHP(Actor source, float damage)
     {
         HP = Mathf.Max(0, HP - damage);
+        if (_healthReference != null) _healthReference.Value = HP;
 
         if (Dead())
         {
@@ -37,6 +41,14 @@ public class Actor : MonoBehaviour
     public virtual bool Dead()
     {
         return HP <= 0;
+    }
+
+    public void SetHealthReference(FloatReference hp, FloatReference maxHP)
+    {
+        _healthReference = hp;
+        _healthReference.Value = HP;
+        _maxHealthReference = maxHP;
+        _maxHealthReference.Value = MaxHP;
     }
 
     /// <summary>

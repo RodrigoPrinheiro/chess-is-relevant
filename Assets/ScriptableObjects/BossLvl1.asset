@@ -18,4 +18,4 @@ MonoBehaviour:
   bullet: {fileID: 4432369662888364852, guid: 84ef0071937c44e40b0317f0080907ee, type: 3}
   _damage: 15
   _attackRange: 0
-  _timeBetweenAttacks: 0.2
+  _timeBetweenAttacks: 0.8

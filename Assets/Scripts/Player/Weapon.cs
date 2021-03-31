@@ -16,7 +16,7 @@ public class Weapon : MonoBehaviour
 
     [SerializeField] private Transform _muzzleTransform;
     [SerializeField] private float _weaponDamage = 10f;
-    [SerializeField] private float _weaponRange = 30f;
+    [SerializeField] private float _weaponRange = 60f;
     [SerializeField] private float _weaponBPS = 2;
     [SerializeField, Range(0, 1000)] private int _projectilesOverride = 0;
     [SerializeField, Range(0, 1)] private float _recoilXAxis;
@@ -163,6 +163,8 @@ public class Weapon : MonoBehaviour
         _weaponRange = Mathf.Max(_weaponRange, 5f);
         _weaponDamage = Mathf.Max(_weaponDamage, 1f);
         _projectiles = Mathf.Max(_projectiles, 1);
+
+        weaponUpgradeEvent?.Invoke();
         
         SetupWeapon();
     }
@@ -191,6 +193,7 @@ public class Weapon : MonoBehaviour
     public UnityEngine.Events.UnityEvent shootEvent;
     public Action<RaycastHit> bulletHit;
     public Action shootFailedEvent;
+    public event Action weaponUpgradeEvent;
 }
 
 [System.Serializable]
