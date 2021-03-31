@@ -25,6 +25,7 @@ public class HighscoreCreator : MonoBehaviour
 
     private void AddScore()
     {
+        if (string.IsNullOrEmpty(GameManager.Instance.PlayerName)) return;
         _highscores.AddNewScore(GameManager.Instance.PlayerName, _waves.Waves, _waves.GameTime);
     }
 }
