@@ -45,6 +45,22 @@ public class AISettings : ScriptableObject
             default: doAttack = null; break;
         };
     }
+    private void OnEnable()
+    {
+        switch (movType)
+        {
+            case (MovementType.Ground): doMovement = new Func<Transform, Vector3>(GroundMovement); break;
+            case (MovementType.Air): doMovement = new Func<Transform, Vector3>(AirMovement); break;
+            default: doMovement = null; break;
+        };
+
+        switch (_attackType)
+        {
+            case (AttackType.Melee): doAttack = new Action<Actor>(MeleeAttack); break;
+            case (AttackType.Ranged): doAttack = new Action<Actor>(RangedAttack); break;
+            default: doAttack = null; break;
+        };
+    }
     public void Init(Transform pPos)
     {
         _player = pPos;
@@ -55,7 +71,10 @@ public class AISettings : ScriptableObject
 
     private Vector3 GroundMovement(Transform owner)
     {
-
+        if (_player == null)
+        {
+            _player = GameObject.FindGameObjectWithTag("Player").transform;
+        }
         Vector3 dir = (_player.position - owner.position).normalized;
 
         dir.y = 0;
