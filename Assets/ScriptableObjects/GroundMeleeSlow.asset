@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ffa4517805c574e4da8e29b4a97013ce, type: 3}
-  m_Name: AI vals 1
+  m_Name: GroundMeleeSlow
   m_EditorClassIdentifier: 
   _minDistanceToPlayer: 0
-  movType: 1
+  movType: 0
   _attackType: 0
   bullet: {fileID: 0}
-  _damage: 10
-  _attackRange: 0
-  _timeBetweenAttacks: 7
+  _damage: 30
+  _attackRange: 2
+  _timeBetweenAttacks: 4

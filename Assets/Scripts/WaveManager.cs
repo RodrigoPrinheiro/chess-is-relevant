@@ -119,7 +119,7 @@ public class WaveManager : MonoBehaviour
         else
         {
             string powerLevel;
-            if ((_wave % 2) == 0)
+            if ((_wave % 5) == 0)
             {
                 _spawner.SpawnBoss(UnityEngine.Random.value * 2);
                 powerLevel = "Boss";

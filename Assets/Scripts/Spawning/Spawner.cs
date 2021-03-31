@@ -95,6 +95,7 @@ public class Spawner : MonoBehaviour
         EnemyActor newEnemy = Instantiate(spawn.Prefab, pos, Quaternion.identity);
 
         AIEntity ai = newEnemy.gameObject.AddComponent<AIEntity>();
+        spawn.aiValues.Init(_playerTransform);
         ai.Actor = spawn;
 
         return newEnemy;
