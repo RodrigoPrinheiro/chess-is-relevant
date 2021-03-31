@@ -11,7 +11,7 @@ public class MainMenuButtons : MonoBehaviour
     }
     public void StartGame()
     {
-        SceneManager.LoadScene(1);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
     }
     public void QuitGame()
     {
