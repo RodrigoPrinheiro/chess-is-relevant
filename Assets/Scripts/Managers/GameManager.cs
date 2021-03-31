@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-
+    public string PlayerName {get; set;}
     private void OnEnable() {
         Actor.StaticActorDeathEvent += PlayerDeath;
     }

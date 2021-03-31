@@ -37,6 +37,7 @@ public class WaveManager : MonoBehaviour
     private float _gameTime;
     public WaveState CurrentWaveState { get; set; }
     public float GameTime => _gameTime;
+    public int Waves => _wave;
 
     private void Awake()
     {
